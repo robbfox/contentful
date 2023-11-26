@@ -9,23 +9,30 @@
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^15.12.1",
+    "@react-three/drei": "^9.88.17",
+    "@react-three/fiber": "^8.15.11",
     "gatsby": "^5.5.0",
-    "gatsby-plugin-image": "^3.5.0",
+    "gatsby-plugin-image": "^3.12.3",
     "gatsby-plugin-react-helmet": "^6.5.0",
     "gatsby-plugin-sharp": "^5.5.0",
     "gatsby-source-contentful": "^8.5.0",
     "gatsby-transformer-sharp": "^5.5.0",
     "gh-pages": "^3.1.0",
     "lodash": "^4.17.21",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "reading-time": "^2.0.0-1"
+    "react-typewriter-effect": "^1.1.0",
+    "reading-time": "^2.0.0-1",
+    "typed.js": "^2.1.0",
+    "typewriter-effect": "^2.21.0",
+    "wc-typed-js": "^1.0.1"
   },
   "devDependencies": {
     "contentful-import": "^8.3.2",
     "gatsby-provision-contentful": "^0.0.5",
-    "netlify-cli": "^10.0.0"
+    "netlify-cli": "^10.0.0",
+    "raw-loader": "^4.0.2"
   },
   "engines": {
     "node": ">=18.0.0"
