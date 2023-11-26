@@ -12,7 +12,7 @@ function Typing() {
       strings: [txt],
       typeSpeed: 25,
       backSpeed: 5,
-      showCursor: true,
+      showCursor: false,
       cursorChar: '|', // Set the cursor character
       loop: true,
     });
