@@ -9,12 +9,12 @@
 }
 
 /* Typing.css */
-.typing-text {
+.desktop-typing-text {
   display: flex;
   flex-direction: column; /* Display lines vertically */
   align-items: center; /* Center each line horizontally */
   gap: 1rem; /* Adjust the gap between lines as needed */
-  width: 1350px; /* Set the desired width */
+  width: 1000px; /* Set the desired width */
   max-width: 100%; /* Ensure it doesn't exceed the viewport width */
 }
 

@@ -2,9 +2,9 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
 import txt from 'raw-loader!./typed-text.txt';
-import './Typing.css'; // Import the CSS file with styles
+import './DesktopTyping.css'; // Import the CSS file with styles
 
-function Typing() {
+function DesktopTyping() {
   const el = useRef(null);
 
   useEffect(() => {
@@ -24,9 +24,9 @@ function Typing() {
 
   return (
     <div className="typing-container">
-      <span ref={el} className="typing-text" />
+      <span ref={el} className="desktop-typing-text" />
     </div>
   );
 }
 
-export default Typing;
+export default DesktopTyping;
