@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-robblog1-dev-122323-authRole",
+      "UnauthRoleArn": "arn:aws:iam::562292659530:role/amplify-robblog1-dev-122323-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::562292659530:role/amplify-robblog1-dev-122323-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-robblog1-dev-122323-deployment",
+      "UnauthRoleName": "amplify-robblog1-dev-122323-unauthRole",
+      "StackName": "amplify-robblog1-dev-122323",
+      "StackId": "arn:aws:cloudformation:eu-west-2:562292659530:stack/amplify-robblog1-dev-122323/4155de80-8f7b-11ee-a299-06af837bbdde",
+      "AmplifyAppId": "doivgjlzdluwu"
+    }
+  }
+}
