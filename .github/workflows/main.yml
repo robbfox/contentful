@@ -1,4 +1,4 @@
-name: CI/CD Workflow
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,29 +6,21 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.4.0
         with:
-          node-version: 18
-
-      - name: Install dependencies
+          node-version: '14.x'
+      - name: Install Dependencies
         run: npm install
-
-      - name: Build Gatsby site
+      - name: Build
         run: npm run build
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to Contentful
-        env:
-          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-        run: |
-          # Add deployment script that uses Contentful credentials
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: public
