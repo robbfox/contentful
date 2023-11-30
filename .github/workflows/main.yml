@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
+
 env:
   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-  
   CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,11 +30,5 @@ jobs:
 
       - name: Deploy to AWS Amplify
         run: |
-          npm install -g @aws-amplify/cli
-          amplify configure --appId ${{ secrets.AMPLIFY_APP_ID }} --envName main
-          amplify env checkout main  # Ensure you are in the correct environment
-          amplify configure set region eu-west-2  # Set your desired AWS region
-          amplify publish
-    
-
-          
+          WEBHOOK_URL="https://webhooks.amplify.eu-west-2.amazonaws.com/prod/webhooks?id=${{ secrets.WEBHOOK_ID }}&token=${{ secrets.WEBHOOK_TOKEN }}&operation=startbuild"
+          curl -X POST -d {} "${WEBHOOK_URL}" -H "Content-Type:application/json"
