@@ -31,7 +31,9 @@ jobs:
         run: |
           npm install -g @aws-amplify/cli
           amplify configure --appId ${{ secrets.AMPLIFY_APP_ID }} --envName main
+          amplify env checkout main  # Ensure you are in the correct environment
+          amplify configure set region eu-west-2  # Set your desired AWS region
           amplify publish
-
+    
 
           
