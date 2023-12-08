@@ -33,12 +33,14 @@
   font-weight: var(--extrabold);
   line-height: var(--solid);
   margin: 0 0 var(--space-xl);
+  color: #acb2c5
 }
 
 .content {
   font-size: var(--text-lead);
   font-weight: var(--semibold);
   margin: 0;
+  color: #acb2c5
 }
 
 @media (min-width: 480px) {

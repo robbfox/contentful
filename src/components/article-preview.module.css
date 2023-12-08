@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   grid-gap: var(--space-3xl);
+  color: #acb2c5
 }
 
 .title {
@@ -13,6 +14,7 @@
   margin-bottom: var(--space-xs);
   margin-top: var(--space-lg);
   border-bottom: 1.5px solid transparent;
+  color: #2dbcb7
 }
 
 .link {
