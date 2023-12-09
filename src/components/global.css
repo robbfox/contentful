@@ -108,4 +108,9 @@ body, html {
   padding: 0;
   overflow-x: auto; /* This may be necessary to prevent the default vertical scrollbar */
 }
+.labelWithColor {
+  color: #acb2c5;
+  font-size: 20px; /* Customize the color as needed */
+}
+
 
