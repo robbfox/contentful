@@ -27,10 +27,11 @@
   text-decoration: none;
  }
 
-.navigationItem a:hover {
+ .navigationItem a:hover, .navigationItem a:active {
   border-bottom-color: var(--primary);
   color: var(--primary);
 }
+
 
 .logoLink {
   display: flex;
