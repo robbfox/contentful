@@ -17,12 +17,12 @@ class ContactIndex extends React.Component {
 
         <div class="container">
   <div class="columns is-justify-content-left">
-    <div class="column is-6-tablet is-5-desktop is-4-widescreen is-3-fullh">
+    <div class="column is-6-tablet is-11-mobile is-5-desktop is-4-widescreen is-3-fullh">
     <form action="https://formspree.io/f/xayzpawa" method="post">
     <div className="columns">
-  <div className="column is-half">
+  <div className="column is-full">
     {/* Name input */}
-    <label className="labelWithColor is-block mb-4">
+    <label className="labelWithColor is-block mb-4" style={{ marginLeft: '4%' }}>
       <span className="is-block mb-2">Your name</span>
       <input
         name="name"
@@ -34,7 +34,7 @@ class ContactIndex extends React.Component {
 
     {/* Email input */}
     
-    <label className="labelWithColor is-block mb-4">
+    <label className="labelWithColor is-block mb-4" style={{ marginLeft: '4%' }}>
       <span className="is-block mb-2">Email address</span>
       <input
         required
@@ -42,11 +42,13 @@ class ContactIndex extends React.Component {
         type="email"
         className="input"
         placeholder="joe.bloggs@example.com"
-      />
+       />
+       
+  
     </label>
   </div>
   <div className="column is-half">
-<label className="labelWithColor is-block mb-4">
+<label className="labelWithColor is-block mb-4" style={{ marginLeft: '4%' }}>
       <span className="is-block mb-2">Message</span>
       <textarea
         name="message"
@@ -54,8 +56,8 @@ class ContactIndex extends React.Component {
         rows="5"
         placeholder="Tell us what you're thinking about..."></textarea>
   </label>
-  <button type="submit" className="button is-success">Send</button>
-  <input type="reset" className="button is-danger" value="Clear" />
+  <button type="submit" className="button is-success" style={{ marginLeft: '4%' }}>Send</button>
+  <input type="reset" className="button is-danger" style={{ marginLeft: '4%' }} value="Clear" />
 </div>
 </div>
 </form>
