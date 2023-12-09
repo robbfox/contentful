@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-
+import '../components/customStyles.css'
 import Hero from "../components/hero";
 import '../components/bulma/css/bulma.css';
 
@@ -22,42 +22,44 @@ class ContactIndex extends React.Component {
     <div className="columns">
   <div className="column is-full">
     {/* Name input */}
-    <label className="labelWithColor is-block mb-4" style={{ marginLeft: '4%' }}>
+    <label className="labelWithColor is-block mb-4" style={{ marginLeft: '8%' }}>
       <span className="is-block mb-2">Your name</span>
       <input
         name="name"
         type="text"
         className="input"
-        placeholder="Joe Bloggs"
+        placeholder="that's a nice name"
       />
     </label>
 
     {/* Email input */}
     
-    <label className="labelWithColor is-block mb-4" style={{ marginLeft: '4%' }}>
+    <label className="labelWithColor is-block mb-4" style={{ marginLeft: '8%' }}>
       <span className="is-block mb-2">Email address</span>
       <input
         required
         name="email"
         type="email"
         className="input"
-        placeholder="joe.bloggs@example.com"
+        placeholder="omg@whatever.com"
        />
        
   
     </label>
   </div>
   <div className="column is-half">
-<label className="labelWithColor is-block mb-4" style={{ marginLeft: '4%' }}>
+<label className="labelWithColor is-block mb-4" style={{ marginLeft: '8%' }}>
       <span className="is-block mb-2">Message</span>
       <textarea
         name="message"
         className="textarea"
         rows="5"
-        placeholder="Tell us what you're thinking about..."></textarea>
+        style={{ minWidth: '320px' }} 
+        placeholder="share your thoughts...">
+    </textarea>
   </label>
-  <button type="submit" className="button is-success" style={{ marginLeft: '4%' }}>Send</button>
-  <input type="reset" className="button is-danger" style={{ marginLeft: '4%' }} value="Clear" />
+  <button type="submit" className="button is-primary is-outlined" style={{ marginLeft: '8%' }}>Send</button>
+  <input type="reset" className="button is-danger is-outlined" style={{ marginLeft: '8%' }} value="Clear" />
 </div>
 </div>
 </form>

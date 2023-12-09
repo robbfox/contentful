@@ -1,4 +1,4 @@
-name: Deploy to AWS Amplify
+name: CI
 
 on:
   push:
@@ -26,9 +26,4 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
-
-      - name: Deploy to AWS Amplify
-        run: 
-          amplify publish
-      
+        run: npm run build        
