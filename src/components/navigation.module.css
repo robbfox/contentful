@@ -27,11 +27,11 @@
   text-decoration: none;
  }
 
- .navigationItem a:hover, .navigationItem a:active {
+.navigationItem a:hover {
   border-bottom-color: var(--primary);
   color: var(--primary);
+  cursor: pointer;
 }
-
 
 .logoLink {
   display: flex;
