@@ -42,6 +42,12 @@
   gap: var(--space-md);
 }
 
+@media (hover: hover) {
+  button:hover {
+      background-color: blue;
+  }
+}
+
 @media (max-width: 767px) {
   .logoLink > span:last-child {
     border: 0;
