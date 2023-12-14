@@ -5,12 +5,17 @@ import Seo from "../components/seo";
 import '../components/customStyles.css'
 import Hero from "../components/hero";
 import '../components/bulma/css/bulma.css';
+import { motion } from "framer-motion";
 
 class ContactIndex extends React.Component {
   render() {
     const { nodes: [contact] } = this.props.data.allContentfulContact;
 
     return (
+      <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 1.5 }}>
       <Layout location={this.props.location}>
         <Seo title="Contact" />
         <Hero title="Contact" image={contact.heroImage.gatsbyImage} contactImage={contact.contactImage} />
@@ -68,7 +73,8 @@ class ContactIndex extends React.Component {
   </div>
 </div>
               </Layout>
-    )
+ </motion.div>
+ )
   }
 }
 

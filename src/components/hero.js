@@ -5,7 +5,7 @@ import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import * as styles from './hero.module.css'
 
 const Hero = ({ image, title, content }) => (
-  <div className={styles.hero}>
+  <div className={styles.hero} ro>
     {image && (
       <GatsbyImage className={styles.image} alt={title} image={image} />
     )}

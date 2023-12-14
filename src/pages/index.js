@@ -1,10 +1,11 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
-
+import './page_animation.css'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
+import { motion } from "framer-motion"
 
 class RootIndex extends React.Component {
   render() {
@@ -12,6 +13,10 @@ class RootIndex extends React.Component {
     const [author] = get(this, 'props.data.allContentfulPerson.nodes')
 
     return (
+      <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 1.5 }}>
       <Layout location={this.props.location}>
         <Hero
           image={author.heroImage.gatsbyImage}
@@ -20,7 +25,8 @@ class RootIndex extends React.Component {
         />
         <ArticlePreview posts={posts} />
       </Layout>
-    )
+</motion.div>
+   )
   }
 }
 

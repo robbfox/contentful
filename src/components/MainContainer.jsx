@@ -6,6 +6,7 @@ import './bulma/css/bulma.css';
 import DesktopTyping from './DesktopTyping';
 import MediaQuery from 'react-responsive';
 import MobileTyping from './MobileTyping';
+import Navigation from './navigation';
 
 const MainContainer = () => {
  
@@ -16,9 +17,8 @@ const MainContainer = () => {
         <AnimatedStars />
         <OrbitControls />
         <>
-          <Html position={[0, 0, 0]}>
- 
-              <h1 className="title has-text-white has-text-centered">
+        <Html position={[0, 0, 0]}>
+          <h1 className="title has-text-white has-text-centered">
               <MediaQuery minWidth={1224}><DesktopTyping /></MediaQuery>
               <MediaQuery maxWidth={1224}><MobileTyping /></MediaQuery>
               </h1>
