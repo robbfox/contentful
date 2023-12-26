@@ -39,7 +39,7 @@
 .pagination-link-active {
     background-color: transparent;
     cursor: pointer; /* Ensure the cursor changes on hover */
-    width: 6%;
+    width: 12%;
     margin: 10px; /* Make the buttons full-width */
 }
 

@@ -24,7 +24,7 @@ class RootIndex
           title={author.name}
           content={author.shortBio}
         />
-        <ArticlePreview posts={posts} />
+       <ArticlePreview posts={posts} />
       </Layout>
 </motion.div>
    )
@@ -35,7 +35,7 @@ export default RootIndex
 
 export const pageQuery = graphql`
   query HomeQuery {
-    allContentfulBlogPost(sort: { publishDate: DESC }) {
+    allContentfulBlogPost(sort: { publishDate: DESC } limit: 2) {
       nodes {
         title
         slug
