@@ -1,0 +1,57 @@
+/* pagination.css */
+@import url('../components/bulma/css/bulma.min.css');
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    justify-content: center;
+    text-align: center;
+}
+
+.pagination-item {
+    margin-right: 10px;
+}
+
+.pagination-link,
+.pagination-link-active {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    color: #b03a93;
+}
+
+.pagination-link:hover {
+    background-color: #9ed9e1;
+}
+
+.pagination-link-active {
+    background-color: #0bfaee;
+    color: #ffffff;
+}
+
+/* Bulma button styling */
+.pagination-link,
+.pagination-link-active {
+    background-color: transparent;
+    cursor: pointer; /* Ensure the cursor changes on hover */
+    width: 6%;
+    margin: 10px; /* Make the buttons full-width */
+}
+
+.pagination-link:hover,
+.pagination-link-active {
+    background-color: #3273dc;
+    border-color: #3292dc;
+    color: #ffffff;
+}
+
+.pagination-link {
+  background-color: #8f3583;
+  border-color: #5d1144;
+  color: #ffffff;
+}

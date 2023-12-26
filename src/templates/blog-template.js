@@ -1,3 +1,4 @@
+// BlogIndex.js
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import get from 'lodash/get';
@@ -6,6 +7,7 @@ import Layout from '../components/layout';
 import Hero from '../components/hero';
 import ArticlePreview from '../components/article-preview';
 import { motion } from 'framer-motion';
+import './pagination.css';
 
 class BlogIndex extends React.Component {
   render() {
@@ -22,17 +24,25 @@ class BlogIndex extends React.Component {
         <Layout location={location}>
           <Seo title={`Blog - Page ${currentPage}`} />
           <Hero title="Blog" />
-          <ArticlePreview posts={posts} />
-          <div>
+          
+          <div className="pagination">
             {Array.from({ length: numPages }).map((_, i) => (
-              <Link
-                key={`pagination-number${i + 1}`}
-                to={i === -1 ? '/blog' : `/blog/${i + 1}`}
-              >
-                {i + 1}
-              </Link>
+              <React.Fragment key={`pagination-number${i + 1}`}>
+                {i + 1 === currentPage ? (
+                  <span className="pagination-link-active button is-primary" Title = "disabled-button" disabled>{i + 1}</span>
+                ) : (
+                  <Link
+                    className="pagination-link button is-primary is-outlined"
+                    to={i === -1 ? '/blog' : `/blog/${i + 1}`}
+                  >
+                    {i + 1}
+                  </Link>
+                )}
+              </React.Fragment>
             ))}
           </div>
+          
+          <ArticlePreview posts={posts} />
         </Layout>
       </motion.div>
     );
@@ -42,10 +52,11 @@ class BlogIndex extends React.Component {
 export default BlogIndex;
 
 export const pageQuery = graphql`
-  query BlogIndexQuery {
+  query BlogIndexQuery($skip: Int!, $limit: Int!) {
     allContentfulBlogPost(
       sort: { publishDate: DESC }
-      limit: 6
+      limit: $limit
+      skip: $skip
     ) {
       nodes {
         title

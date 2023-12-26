@@ -1,13 +1,14 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
-import './page_animation.css'
+import '../pages/page_animation.css'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
 import { motion } from "framer-motion"
 
-class RootIndex extends React.Component {
+class RootIndex
+ extends React.Component {
   render() {
     const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
     const [author] = get(this, 'props.data.allContentfulPerson.nodes')
