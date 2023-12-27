@@ -7,7 +7,7 @@ import Hero from "../components/hero";
 import '../components/bulma/css/bulma.css';
 import { motion } from "framer-motion";
 
-const ContactIndex = ({data}) => {
+const ContactIndex = ({location, data}) => {
   const { nodes: [contact] } = data.allContentfulContact;
 
     return (
