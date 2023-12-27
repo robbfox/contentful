@@ -15,7 +15,7 @@ const ContactIndex = ({data}) => {
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
       transition={{ duration: 1.5 }}>
-      <Layout location={this.props.location}>
+      <Layout location={location}>
         <Seo title="Contact" />
         <Hero title="Contact" image={contact.heroImage.gatsbyImage} contactImage={contact.contactImage} />
 
