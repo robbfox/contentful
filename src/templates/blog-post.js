@@ -13,11 +13,10 @@ import Hero from '../components/hero'
 import Tags from '../components/tags'
 import * as styles from './blog-post.module.css'
 
-class BlogPostTemplate extends React.Component {
-  render() {
-    const post = get(this.props, 'data.contentfulBlogPost')
-    const previous = get(this.props, 'data.previous')
-    const next = get(this.props, 'data.next')
+const BlogPostTemplate = ({data}) => {
+    const post = get(data, 'contentfulBlogPost')
+    const previous = get(data, 'previous')
+    const next = get(data, 'next')
     const plainTextDescription = documentToPlainTextString(
       JSON.parse(post.description.raw)
     )
@@ -91,7 +90,7 @@ class BlogPostTemplate extends React.Component {
       </motion.div>
    )
   }
-}
+
 
 export default BlogPostTemplate
 

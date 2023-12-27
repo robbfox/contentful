@@ -7,9 +7,8 @@ import Hero from "../components/hero";
 import '../components/bulma/css/bulma.css';
 import { motion } from "framer-motion";
 
-class ContactIndex extends React.Component {
-  render() {
-    const { nodes: [contact] } = this.props.data.allContentfulContact;
+const ContactIndex = ({data}) => {
+  const { nodes: [contact] } = data.allContentfulContact;
 
     return (
       <motion.div
@@ -76,7 +75,7 @@ class ContactIndex extends React.Component {
  </motion.div>
  )
   }
-}
+
 
 export default ContactIndex;
 

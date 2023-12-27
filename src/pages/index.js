@@ -7,18 +7,16 @@ import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
 import { motion } from "framer-motion"
 
-class RootIndex
- extends React.Component {
-  render() {
-    const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
-    const [author] = get(this, 'props.data.allContentfulPerson.nodes')
+const RootIndex = ({data, location}) => {
+    const posts = get(data, 'allContentfulBlogPost.nodes')
+    const [author] = get(data, 'allContentfulPerson.nodes')
 
     return (
       <motion.div
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
       transition={{ duration: 1.5 }}>
-      <Layout location={this.props.location}>
+      <Layout location={location}>
         <Hero
           image={author.heroImage.gatsbyImage}
           title={author.name}
@@ -29,7 +27,7 @@ class RootIndex
 </motion.div>
    )
   }
-}
+
 
 export default RootIndex
 

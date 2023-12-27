@@ -9,10 +9,8 @@ import ArticlePreview from '../components/article-preview';
 import { motion } from 'framer-motion';
 import './pagination.css';
 
-class BlogIndex extends React.Component {
-  render() {
-    const { location, pageContext } = this.props;
-    const posts = get(this, 'props.data.allContentfulBlogPost.nodes');
+const BlogIndex = ({location, pageContext, data}) => {
+  const posts = get(data, 'allContentfulBlogPost.nodes');
     const { currentPage, numPages } = pageContext;
 
     return (
@@ -47,7 +45,7 @@ class BlogIndex extends React.Component {
       </motion.div>
     );
   }
-}
+
 
 export default BlogIndex;
 
