@@ -26,10 +26,8 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-responsive": "^9.0.2",
-    "react-typewriter-effect": "^1.1.0",
+    "react-typed-component": "^1.0.6",
     "reading-time": "^2.0.0-1",
-    "typed.js": "^2.1.0",
-    "typewriter-effect": "^2.21.0",
     "wc-typed-js": "^1.0.1"
   },
   "devDependencies": {

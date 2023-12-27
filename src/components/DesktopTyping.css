@@ -1,5 +1,5 @@
 /* Typing.css */
-.typing-container {
+.desktop-typing-container {
   position: center;
   top: 50%;
   left: 50%;
@@ -16,28 +16,11 @@
   gap: 1rem; /* Adjust the gap between lines as needed */
   width: 1000px; /* Set the desired width */
   max-width: 100%; /* Ensure it doesn't exceed the viewport width */
+  margin: auto;
 }
 
 @keyframes scrollText {
   to {
     transform: translateY(-20%); /* Move off-screen upwards */
-  }
-}
-.typed-cursor {
-  -webkit-animation: blinker 1s linear infinite;
-          animation: blinker 1s linear infinite;
-}
-
-@-webkit-keyframes blinker {
-  50% {
-      opacity: 0;
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  }
-}
-
-@keyframes blinker {
-  50% {
-      opacity: 0;
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   }
 }
