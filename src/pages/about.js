@@ -12,7 +12,7 @@ import { graphql } from 'gatsby';
 import { get } from 'lodash';
 import '../components/DesktopTyping.css';
 import '../components/MobileTyping.css';
-import TypeWriterEffect from 'react-typewriter-effect';
+
 
 
 
