@@ -10,8 +10,8 @@ import '../components/MainContainer_styling.css';
 import ReactTyped from 'react-typed-component';
 import { graphql } from 'gatsby';
 import { get } from 'lodash';
-import '../components/DesktopTyping.css';
-import '../components/MobileTyping.css';
+import '../components/typing.css';
+
 
 
 
