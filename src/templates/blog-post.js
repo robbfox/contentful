@@ -13,7 +13,7 @@ import Hero from '../components/hero'
 import Tags from '../components/tags'
 import * as styles from './blog-post.module.css'
 
-const BlogPostTemplate = ({data}) => {
+const BlogPostTemplate = ({location, data}) => {
     const post = get(data, 'contentfulBlogPost')
     const previous = get(data, 'previous')
     const next = get(data, 'next')
