@@ -31,7 +31,7 @@ const AboutIndex = ({ data }) => {
              <AnimatedStars />
              <OrbitControls />
              <>
-               <Html position={[-6, 1, 0]}>
+               <Html position={[-6, 0, 0]}>
                <P5Overlay 
                words = {words}/>  
                </Html>

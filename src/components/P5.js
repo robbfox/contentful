@@ -13,7 +13,7 @@ const P5Overlay = ({ words }) => {
 
       class Word {
         constructor(word) {
-          this.x = p.constrain(p.random(p.width), 0, p.width - 200); // Adjust 100 as needed
+          this.x = p.constrain(p.random(p.width), 0, p.width); // Adjust 100 as needed
     // Random y position within the canvas height
           this.y = p.constrain(p.random(p.height), 0, p.height); // Random y position within the canvas height
           this.size = p.random(200, 200);
