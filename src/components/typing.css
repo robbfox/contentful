@@ -1,0 +1,44 @@
+/* Typing.css */
+.desktop-typing-container {
+  position: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  color: rgb(251, 251, 251); /* Set the text color to white or another color that contrasts with your background */
+  overflow: hidden;
+}
+
+/* Typing.css */
+.desktop-typing-text {
+  display: flex;
+  flex-direction: column; /* Display lines vertically */
+  align-items: center; /* Center each line horizontally */
+  gap: 1rem; /* Adjust the gap between lines as needed */
+  width: 1000px; /* Set the desired width */
+  max-width: 100%; /* Ensure it doesn't exceed the viewport width */
+  margin: auto;
+}
+/* MobileTyping.css */
+.mobile-typing-container {
+  position: relative;
+  top: 0%;
+  left: 11%;
+  transform: translate(-50%, -100%);
+  color: rgb(251, 251, 251); /* Set the text color to white or another color that contrasts with your background */
+  overflow: hidden;
+}
+.mobile-typing-text {
+  display: flex;
+  flex-direction: column; /* Display lines vertically */
+  align-items: center; /* Center each line horizontally */
+  gap: 1rem; /* Adjust the gap between lines as needed */
+  width: 1000px; /* Set the desired width */
+  max-width: 30%; /* Ensure it doesn't exceed the viewport width */
+  margin: auto;
+}
+@keyframes scrollText {
+  to {
+    transform: translateY(-20%); /* Move off-screen upwards */
+  }
+}
+

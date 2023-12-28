@@ -5,17 +5,23 @@ import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import AnimatedStars from '../components/AnimatedStars';
 import '../components/bulma/css/bulma.css';
+import MediaQuery from 'react-responsive';
 import '../components/MainContainer_styling.css';
+import ReactTyped from 'react-typed-component';
 import { graphql } from 'gatsby';
 import { get } from 'lodash';
-import loadable from '@loadable/component'
+import '../components/typing.css';
 
-const P5Overlay = loadable(() => import('../components/P5'))
+
+
+
+
+// ... (other imports)
+
 const AboutIndex = ({ data }) => {
    const stuff = get(data, 'allContentfulPerson.nodes[0].about.raw', '');
    const parsedStuff = JSON.parse(stuff);
    const textContent = parsedStuff.content[0].content[0].value;
-   const words = textContent.split(' ');
  
    return (
      <motion.div
@@ -27,13 +33,41 @@ const AboutIndex = ({ data }) => {
          <div style={{ height: '80vh', width: '90vw', margin: 'auto' }}>
            <Canvas>
              <color attach="background" args={['#000117']} />
-            
              <AnimatedStars />
              <OrbitControls />
              <>
-               <Html position={[-6, 0, 0]}>
-               <P5Overlay 
-               words = {words}/>  
+               <Html position={[-6, 1, 0]}>
+                 <MediaQuery minWidth={1224}>
+                   <h1 className="title has-text-white has-text-centered">
+                     <div
+                       className="desktoptyping-container desktop-typing-text"
+                       style={{ display: 'inline-block' }}
+                     >
+                       <ReactTyped
+                         strings={[textContent]}
+                         typeSpeed={40}
+                         backspeed={60}
+                         loop
+                       />
+                     </div>
+                   </h1>
+                 </MediaQuery>
+                 <MediaQuery maxWidth={1224}>
+                   <h1 className="title has-text-white has-text-centered">
+                   <div
+                       className="mobile-typing-container mobile-typing-text"
+                       style={{ display: 'inline-block' }}
+                     >
+                       
+                       <ReactTyped
+                         strings={[textContent]}
+                         typeSpeed={40}
+                         backspeed={60}
+                         loop
+                       />
+                     </div>
+                   </h1>
+                 </MediaQuery>
                </Html>
              </>
            </Canvas>
@@ -45,7 +79,7 @@ const AboutIndex = ({ data }) => {
  
  export default AboutIndex;
  
-
+ // ... (remaining code)
  
 
 export const pageQuery = graphql`

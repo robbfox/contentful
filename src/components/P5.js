@@ -47,7 +47,7 @@ const P5Overlay = ({ words }) => {
 
       p.setup = () => {
         // Adjust the position of the canvas by changing the values in translate
-        p.createCanvas(window.innerWidth * 0.9, window.innerHeight * 0.8).style('position', 'absolute').style('top', '10%').style('left', '4.3%').style('pointer-events', 'none');
+        p.createCanvas(window.innerWidth, window.innerHeight).style('position', 'absolute').style('top', '10%').style('left', '4.3%').style('pointer-events', 'none');
       };
 
       p.draw = () => {
