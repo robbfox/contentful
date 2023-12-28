@@ -8,15 +8,9 @@ import '../components/bulma/css/bulma.css';
 import '../components/MainContainer_styling.css';
 import { graphql } from 'gatsby';
 import { get } from 'lodash';
-import '../components/typing.css';
-import P5Overlay from '../components/P5';
+import loadable from '@loadable/component'
 
-
-
-
-
-// ... (other imports)
-
+const P5Overlay = loadable(() => import('../components/P5'))
 const AboutIndex = ({ data }) => {
    const stuff = get(data, 'allContentfulPerson.nodes[0].about.raw', '');
    const parsedStuff = JSON.parse(stuff);
@@ -51,7 +45,7 @@ const AboutIndex = ({ data }) => {
  
  export default AboutIndex;
  
- // ... (remaining code)
+
  
 
 export const pageQuery = graphql`

@@ -1,5 +1,5 @@
 // P5Overlay.js
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import p5 from 'p5';
 
 const P5Overlay = ({ words }) => {
@@ -8,26 +8,21 @@ const P5Overlay = ({ words }) => {
       const numWords = words.length;
       let wordIndex = 0;
       let emergeSpeed = 20;
-      let maxWordsPerLine = 15;
-      let currentLine = 0;
+    
+
 
       class Word {
         constructor(word) {
-          if (typeof window !== 'undefined') {
-            // Random x position within the canvas width
-            this.x = p.constrain(p.random(p.width), 0, p.width - 100); // Adjust 100 as needed
-            // Random y position within the canvas height
-            this.y = p.constrain(p.random(p.height), 0, p.height - 30); // Adjust 30 as needed
-          }
-          this.size = p.random(20, 40);
+          this.x = p.constrain(p.random(p.width), 0, p.width - 200); // Adjust 100 as needed
+    // Random y position within the canvas height
+          this.y = p.constrain(p.random(p.height), 0, p.height - 130); // Random y position within the canvas height
+          this.size = p.random(200, 200);
           this.opacity = 0;
           this.word = word;
           this.displayTime = p.millis(); // Record the time when the word is displayed
           this.fadeDuration = 3000; // 3000 milliseconds (3 seconds) fade duration
         }
 
-      
-      
         update() {
           const elapsedTime = p.millis() - this.displayTime;
           if (elapsedTime > this.fadeDuration) {

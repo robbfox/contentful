@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^16.0.7",
+    "@loadable/component": "^5.16.3",
     "@react-three/drei": "^9.89.0",
     "@react-three/fiber": "^8.15.11",
     "framer-motion": "^10.16.16",
