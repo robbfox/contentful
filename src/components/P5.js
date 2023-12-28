@@ -13,16 +13,21 @@ const P5Overlay = ({ words }) => {
 
       class Word {
         constructor(word) {
-          this.x = p.constrain(p.random(p.width), 0, p.width - 200); // Adjust 100 as needed
-    // Random y position within the canvas height
-          this.y = p.constrain(p.random(p.height), 0, p.height - 130); // Random y position within the canvas height
-          this.size = p.random(200, 200);
+          if (typeof window !== 'undefined') {
+            // Random x position within the canvas width
+            this.x = p.constrain(p.random(p.width), 0, p.width - 100); // Adjust 100 as needed
+            // Random y position within the canvas height
+            this.y = p.constrain(p.random(p.height), 0, p.height - 30); // Adjust 30 as needed
+          }
+          this.size = p.random(20, 40);
           this.opacity = 0;
           this.word = word;
           this.displayTime = p.millis(); // Record the time when the word is displayed
           this.fadeDuration = 3000; // 3000 milliseconds (3 seconds) fade duration
         }
 
+      
+      
         update() {
           const elapsedTime = p.millis() - this.displayTime;
           if (elapsedTime > this.fadeDuration) {
