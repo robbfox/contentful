@@ -11,6 +11,7 @@ import ReactTyped from 'react-typed-component';
 import { graphql } from 'gatsby';
 import { get } from 'lodash';
 import '../components/typing.css';
+import P5Overlay from '../components/P5Overlay';
 
 
 
@@ -22,6 +23,7 @@ const AboutIndex = ({ data }) => {
    const stuff = get(data, 'allContentfulPerson.nodes[0].about.raw', '');
    const parsedStuff = JSON.parse(stuff);
    const textContent = parsedStuff.content[0].content[0].value;
+   const words = textContent.split(' ');
  
    return (
      <motion.div
@@ -33,41 +35,13 @@ const AboutIndex = ({ data }) => {
          <div style={{ height: '80vh', width: '90vw', margin: 'auto' }}>
            <Canvas>
              <color attach="background" args={['#000117']} />
+            
              <AnimatedStars />
              <OrbitControls />
              <>
                <Html position={[-6, 1, 0]}>
-                 <MediaQuery minWidth={1224}>
-                   <h1 className="title has-text-white has-text-centered">
-                     <div
-                       className="desktoptyping-container desktop-typing-text"
-                       style={{ display: 'inline-block' }}
-                     >
-                       <ReactTyped
-                         strings={[textContent]}
-                         typeSpeed={40}
-                         backspeed={60}
-                         loop
-                       />
-                     </div>
-                   </h1>
-                 </MediaQuery>
-                 <MediaQuery maxWidth={1224}>
-                   <h1 className="title has-text-white has-text-centered">
-                   <div
-                       className="mobile-typing-container mobile-typing-text"
-                       style={{ display: 'inline-block' }}
-                     >
-                       
-                       <ReactTyped
-                         strings={[textContent]}
-                         typeSpeed={40}
-                         backspeed={60}
-                         loop
-                       />
-                     </div>
-                   </h1>
-                 </MediaQuery>
+               <P5Overlay 
+               words = {words}/>  
                </Html>
              </>
            </Canvas>
