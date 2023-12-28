@@ -5,13 +5,11 @@ import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import AnimatedStars from '../components/AnimatedStars';
 import '../components/bulma/css/bulma.css';
-import MediaQuery from 'react-responsive';
 import '../components/MainContainer_styling.css';
-import ReactTyped from 'react-typed-component';
 import { graphql } from 'gatsby';
 import { get } from 'lodash';
 import '../components/typing.css';
-import P5Overlay from '../components/P5Overlay';
+import P5Overlay from '../components/P5';
 
 
 
