@@ -1,6 +1,6 @@
 import React from 'react'
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/next"
+
 import './variables.css'
 import './global.css'
 import Seo from './seo'
@@ -14,7 +14,6 @@ class Template extends React.Component {
       <>
         <Seo />
         <Analytics />
-        <SpeedInsights />
         <Navigation />
         <main>{children}</main>
         <Footer />
