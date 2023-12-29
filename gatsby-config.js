@@ -17,14 +17,15 @@ module.exports = {
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        host: process.env.CONTENTFUL_HOST
+        host: process.env.CONTENTFUL_HOST,
       },
-    
-    resolve: "@vercel/gatsby-plugin-vercel-analytics",
-    options: {
-      // (optional) Prints metrics in the console when true
-      debug: false,
     },
-  }
+    {
+      resolve: "@vercel/gatsby-plugin-vercel-analytics",
+      options: {
+        // (optional) Prints metrics in the console when true
+        debug: false,
+      },
+    },
   ],
 };
