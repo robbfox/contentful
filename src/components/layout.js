@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Analytics } from '@vercel/analytics/react';
 import './variables.css'
 import './global.css'
 import Seo from './seo'
@@ -12,6 +12,7 @@ class Template extends React.Component {
     return (
       <>
         <Seo />
+        <Analytics />
         <Navigation />
         <main>{children}</main>
         <Footer />

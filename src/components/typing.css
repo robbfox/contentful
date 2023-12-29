@@ -1,8 +1,8 @@
 /* Typing.css */
 .desktop-typing-container {
   position: center;
-  top: 50%;
-  left: 50%;
+  top: 100%;
+  left: 100%;
   transform: translate(-50%, -100%);
   color: rgb(251, 251, 251); /* Set the text color to white or another color that contrasts with your background */
   overflow: hidden;
