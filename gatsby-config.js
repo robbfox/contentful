@@ -20,12 +20,5 @@ module.exports = {
         host: process.env.CONTENTFUL_HOST,
       },
     },
-    {
-      resolve: "@vercel/gatsby-plugin-vercel-analytics",
-      options: {
-        // (optional) Prints metrics in the console when true
-        debug: false,
-      },
-    },
   ],
 };
