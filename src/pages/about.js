@@ -11,6 +11,7 @@ import ReactTyped from 'react-typed-component';
 import { graphql } from 'gatsby';
 import { get } from 'lodash';
 import '../components/typing.css';
+import 'bulma/css/bulma.min.css';
 
 
 

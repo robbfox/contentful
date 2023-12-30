@@ -6,6 +6,7 @@ import '../components/customStyles.css'
 import Hero from "../components/hero";
 import '../components/global.css'
 import { motion } from "framer-motion";
+import 'bulma/css/bulma.min.css';
 
 const ContactIndex = ({location, data}) => {
   const { nodes: [contact] } = data.allContentfulContact;

@@ -11,6 +11,8 @@ import '../components/global.css'
 
 
 
+
+
 const BlogIndex = ({location, pageContext, data}) => {
     const posts = get(data, 'allContentfulBlogPost.nodes');
     const { currentPage, numPages } = pageContext;
