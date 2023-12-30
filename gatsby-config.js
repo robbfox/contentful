@@ -20,17 +20,5 @@ module.exports = {
         host: process.env.CONTENTFUL_HOST,
       },
     },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Robb Fox Official`,
-        short_name: `Robb Fox`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#000000`,
-        display: `standalone`,
-        icon: `public/favicon.png`, // Replace with the actual path to your icon
-      },
-    },
   ],
 };
