@@ -14,7 +14,6 @@
     "@react-three/fiber": "^8.15.11",
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.2",
-    "bulma": "^0.9.4",
     "framer-motion": "^10.16.16",
     "gatsby": "^5.12.11",
     "gatsby-plugin-image": "^3.12.3",

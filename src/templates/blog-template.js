@@ -8,6 +8,7 @@ import Hero from '../components/hero';
 import ArticlePreview from '../components/article-preview';
 import { motion } from 'framer-motion';
 import './pagination.css';
+import '../components/global.css'
 
 
 const BlogIndex = ({location, pageContext, data}) => {
