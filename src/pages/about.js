@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import AnimatedStars from '../components/AnimatedStars';
-import '../components/bulma.min.css';
+import '../components/bulma/css/bulma.min.css';
 import MediaQuery from 'react-responsive';
 import '../components/MainContainer_styling.css';
 import ReactTyped from 'react-typed-component';

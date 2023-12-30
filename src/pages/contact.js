@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import Seo from "../components/seo";
 import '../components/customStyles.css'
 import Hero from "../components/hero";
-import '../components/bulma.min.css';
+import '../components/bulma/css/bulma.css';
 import { motion } from "framer-motion";
 
 const ContactIndex = ({location, data}) => {

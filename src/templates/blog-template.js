@@ -8,7 +8,6 @@ import Hero from '../components/hero';
 import ArticlePreview from '../components/article-preview';
 import { motion } from 'framer-motion';
 import './pagination.css';
-import '../components/bulma.min.css'
 
 const BlogIndex = ({location, pageContext, data}) => {
   const posts = get(data, 'allContentfulBlogPost.nodes');
