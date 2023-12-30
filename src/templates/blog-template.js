@@ -9,6 +9,7 @@ import ArticlePreview from '../components/article-preview';
 import { motion } from 'framer-motion';
 import './pagination.css';
 
+
 const BlogIndex = ({location, pageContext, data}) => {
   const posts = get(data, 'allContentfulBlogPost.nodes');
     const { currentPage, numPages } = pageContext;
