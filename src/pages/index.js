@@ -4,36 +4,29 @@ import get from 'lodash/get'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
-import { motion } from 'framer-motion'
-import Img from 'gatsby-image'  // Import the Img component
+import { motion } from "framer-motion"
 
-const RootIndex = ({ data, location }) => {
-  const posts = get(data, 'allContentfulBlogPost.nodes')
-  const [author] = get(data, 'allContentfulPerson.nodes')
+const RootIndex = ({data, location}) => {
+    const posts = get(data, 'allContentfulBlogPost.nodes')
+    const [author] = get(data, 'allContentfulPerson.nodes')
 
-  return (
-    <motion.div
+    return (
+      <motion.div
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
-      transition={{ duration: 1.5 }}
-    >
+      transition={{ duration: 1.5 }}>
       <Layout location={location}>
         <Hero
           image={author.heroImage.gatsbyImage}
           title={author.name}
           content={author.shortBio}
         />
-        {/* Add loading="eager" to disable lazy loading for the hero image */}
-        <Img
-          loading="eager"
-          fluid={author.heroImage.gatsbyImage}
-          alt={author.name}
-        />
-        <ArticlePreview posts={posts} />
+       <ArticlePreview posts={posts} />
       </Layout>
-    </motion.div>
-  )
-}
+</motion.div>
+   )
+  }
+
 
 export default RootIndex
 
