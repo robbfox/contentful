@@ -4,17 +4,14 @@ import get from 'lodash/get'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
-import { motion } from "framer-motion"
+
 
 const RootIndex = ({data, location}) => {
     const posts = get(data, 'allContentfulBlogPost.nodes')
     const [author] = get(data, 'allContentfulPerson.nodes')
 
     return (
-      <motion.div
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: 1.5 }}>
+    
       <Layout location={location}>
         <Hero
           image={author.heroImage.gatsbyImage}
@@ -23,7 +20,7 @@ const RootIndex = ({data, location}) => {
         />
        <ArticlePreview posts={posts} />
       </Layout>
-</motion.div>
+
    )
   }
 
