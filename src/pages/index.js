@@ -42,8 +42,8 @@ export const pageQuery = graphql`
           gatsbyImage(
             layout: FULL_WIDTH
             placeholder: BLURRED
-            width: 424
-            height: 212
+            width: 1500
+            height: 800
           )
         }
         description {
@@ -61,7 +61,7 @@ export const pageQuery = graphql`
         }
         title
         heroImage: image {
-          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 1180)
+          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 3000)
         }
       }
     }
