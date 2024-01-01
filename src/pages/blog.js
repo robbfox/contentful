@@ -21,7 +21,7 @@ const BlogIndex = ({location, pageContext, data}) => {
       <motion.div
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 0.5 }}
       >
         <Layout location={location}>
           <Seo title={`Blog - Page ${currentPage}`} />
