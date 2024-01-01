@@ -1,6 +1,3 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
 module.exports = {
   siteMetadata: {
     title: "Robb Fox",
@@ -28,8 +25,16 @@ module.exports = {
         background_color: "#6b37bf",
         theme_color: "#6b37bf",
         display: "standalone",
-        icon: "./favicon.png", // This path is relative to the root of the site.
+        icon: "src/images/icon.png", // This path is relative to the root of the site.
         crossOrigin: `use-credentials`,
+        icons: [
+          {
+            src: "./maskable_icon_x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
       },
     },
   ],
