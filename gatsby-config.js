@@ -30,7 +30,7 @@ module.exports = {
         icons: [
           {
             src: "./maskable_icon_x512.png",
-            sizes: "196x196",
+            sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
           },
