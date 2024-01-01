@@ -6,7 +6,6 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 import { BLOCKS } from '@contentful/rich-text-types'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import readingTime from 'reading-time'
-import { motion } from "framer-motion";
 import Seo from '../components/seo'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
@@ -38,10 +37,7 @@ const BlogPostTemplate = ({location, data}) => {
     };
 
     return (
-      <motion.div
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: 1.5 }}>
+    
       <Layout location={location}>
         <Seo
           title={post.title}
@@ -87,7 +83,7 @@ const BlogPostTemplate = ({location, data}) => {
           </div>
         </div>
       </Layout>
-      </motion.div>
+
    )
   }
 

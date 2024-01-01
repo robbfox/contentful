@@ -5,18 +5,13 @@ import Seo from "../components/seo";
 import '../components/customStyles.css'
 import Hero from "../components/hero";
 import '../components/global.css'
-import { motion } from "framer-motion";
 import 'bulma/css/bulma.min.css';
 
 const ContactIndex = ({location, data}) => {
   const { nodes: [contact] } = data.allContentfulContact;
 
     return (
-      <motion.div
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: 1.5 }}>
-      <Layout location={location}>
+       <Layout location={location}>
         <Seo title="Contact" />
         <Hero title="Contact" image={contact.heroImage.gatsbyImage} contactImage={contact.contactImage} />
 
@@ -73,7 +68,7 @@ const ContactIndex = ({location, data}) => {
   </div>
 </div>
               </Layout>
- </motion.div>
+
  )
   }
 

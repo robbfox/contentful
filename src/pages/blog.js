@@ -5,7 +5,6 @@ import Seo from '../components/seo';
 import Layout from '../components/layout';
 import Hero from '../components/hero';
 import ArticlePreview from '../components/article-preview';
-import { motion } from 'framer-motion';
 import '../components/global.css'
 
 
@@ -18,12 +17,7 @@ const BlogIndex = ({location, pageContext, data}) => {
     const { currentPage, numPages } = pageContext;
 
     return (
-      <motion.div
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Layout location={location}>
+      <Layout location={location}>
           <Seo title={`Blog - Page ${currentPage}`} />
           <Hero title="Blog" />
           <ArticlePreview posts={posts} />
@@ -38,8 +32,7 @@ const BlogIndex = ({location, pageContext, data}) => {
             ))}
           </div>
         </Layout>
-      </motion.div>
-    );
+      );
   }
 
 

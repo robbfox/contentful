@@ -25,12 +25,7 @@ const AboutIndex = ({ data }) => {
    const textContent = parsedStuff.content[0].content[0].value;
  
    return (
-     <motion.div
-       animate={{ opacity: 1 }}
-       initial={{ opacity: 0 }}
-       transition={{ duration: 0.5 }}
-     >
-       <Layout>
+     <Layout>
          <div style={{ height: '80vh', width: '90vw', margin: 'auto' }}>
            <Canvas>
              <color attach="background" args={['#000117']} />
@@ -74,9 +69,8 @@ const AboutIndex = ({ data }) => {
            </Canvas>
          </div>
        </Layout>
-     </motion.div>
-   );
- };
+ );
+};
  
  export default AboutIndex;
  
