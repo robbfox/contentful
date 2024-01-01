@@ -25,12 +25,12 @@ module.exports = {
         background_color: "#6b37bf",
         theme_color: "#6b37bf",
         display: "standalone",
-        icon: "src/images/icon.png", // This path is relative to the root of the site.
+        icon: "./maskable_icon_x192.png", // This path is relative to the root of the site.
         crossOrigin: `use-credentials`,
         icons: [
           {
             src: "./maskable_icon_x192.png",
-            sizes: "192x192",
+            sizes: "196x196",
             type: "image/png",
             purpose: "any maskable",
           },
