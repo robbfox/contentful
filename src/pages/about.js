@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from '../components/layout';
-import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import AnimatedStars from '../components/AnimatedStars';

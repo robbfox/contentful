@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
-import { motion } from 'framer-motion';
+
 
 
 const RootIndex = ({data, location}) => {
@@ -56,6 +56,9 @@ export const pageQuery = graphql`
       nodes {
         name
         shortBio {
+          raw
+        }
+        about {
           raw
         }
         title

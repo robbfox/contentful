@@ -11,6 +11,8 @@ import Layout from '../components/layout'
 import Hero from '../components/hero'
 import Tags from '../components/tags'
 import * as styles from './blog-post.module.css'
+import Commentbox from '../components/commentbox'
+
 
 const BlogPostTemplate = ({location, data}) => {
     const post = get(data, 'contentfulBlogPost')
@@ -21,6 +23,7 @@ const BlogPostTemplate = ({location, data}) => {
     )
     const plainTextBody = documentToPlainTextString(JSON.parse(post.body.raw))
     const { minutes: timeToRead } = readingTime(plainTextBody)
+    
     
     const options = {
       renderNode: {
@@ -80,6 +83,7 @@ const BlogPostTemplate = ({location, data}) => {
                 </ul>
               </nav>
             )}
+          < Commentbox projectId={'5635035839332352-proj'}/>
           </div>
         </div>
       </Layout>

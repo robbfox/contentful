@@ -7,7 +7,7 @@
     "static",
     "ssg"
   ],
-  "repository": "https://github.com/contentful-userland/gatsby-contentful-starter",
+  "repository": "https://github.com/robbfox/contentful",
   "success_url": "/",
   "buildpacks": [
     {
