@@ -5,6 +5,9 @@ module.exports = {
     title: "Robb Fox",
     description: "Official",
   },
+  flags: {
+    DEV_SSR: true
+  },
   plugins: [
     "gatsby-transformer-sharp",
     "gatsby-plugin-react-helmet",
