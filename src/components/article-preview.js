@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import Lightbox from './Lightbox'; // Your custom lightbox
+
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import Tags from './Tags'; // Assuming you're using a Tags component
 import * as styles from './article-preview.module.css'; // Your CSS Module
 import Container from './Container'; // Assuming you have a layout wrapper
 import 'lightbox2/dist/css/lightbox.min.css';
-import 'lightbox2/dist/js/lightbox.min.js';
+import Lightbox from 'lightbox2/dist/js/lightbox.min.js';
 
 const ArticlePreview = ({ posts }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
