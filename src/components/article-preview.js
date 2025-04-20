@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import Lightbox from './Lightbox'; // Your custom lightbox
@@ -6,14 +6,25 @@ import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import Tags from './Tags'; // Assuming you're using a Tags component
 import * as styles from './article-preview.module.css'; // Your CSS Module
 import Container from './Container'; // Assuming you have a layout wrapper
+import 'lightbox2/dist/css/lightbox.min.css';
+import 'lightbox2/dist/js/lightbox.min.js';
 
 const ArticlePreview = ({ posts }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState(null);
 
+  useEffect(() => {
+    console.log('Lightbox state updated:', lightboxOpen);
+  }, [lightboxOpen]);
+  
   const openLightbox = (image) => {
-    setLightboxImage(image);
+    console.log('Image passed to Lightbox:', image);
+    const formattedImage = {
+      gatsbyImageData: image.gatsbyImage,
+    };
+    setLightboxImage(formattedImage);
     setLightboxOpen(true);
+    console.log('Lightbox state:', lightboxOpen);
   };
 
   const closeLightbox = () => {
@@ -28,18 +39,18 @@ const ArticlePreview = ({ posts }) => {
         {posts.map((post) => (
           <li key={post.slug}>
             {/* Image opens lightbox */}
-            <div
-              role="button"
-              tabIndex={0}
-              className={styles.imageWrapper}
-              onClick={() => openLightbox(post.heroImage)}
-              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && openLightbox(post.heroImage)}
-            >
-              <GatsbyImage
-                alt={post.heroImage.alt || 'Preview image'}
-                image={post.heroImage.gatsbyImage}
-              />
-            </div>
+            <a
+        href={post.heroImage.gatsbyImage.images.sources[0].srcSet.split(' ')[0]} // Full-size image URL
+        data-lightbox="gallery" // Group images under the same gallery
+        data-title={post.title} // Optional: Add a caption
+      >
+        <GatsbyImage
+          alt={post.heroImage.alt || 'Preview image'}
+          image={post.heroImage.gatsbyImage}
+          className={styles.imageWrapper}
+        />
+      </a>
+
 
             {/* Title and content links to the article */}
             <Link to={`/blog/${post.slug}`} className={styles.link}>

@@ -29,3 +29,9 @@
   display: flex;
   justify-content: space-between;
 }
+.imageWrapper {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px; /* Optional: Add styling for better visuals */
+}

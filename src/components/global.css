@@ -108,6 +108,27 @@ body, html {
   padding: 0;
   overflow-x: auto; /* This may be necessary to prevent the default vertical scrollbar */
 }
+/* Increase the size of the lightbox container */
+.lb-outerContainer {
+  width: 90% !important; /* Adjust the width */
+  max-width: 1200px !important; /* Set a maximum width */
+  height: auto !important; /* Maintain aspect ratio */
+}
+
+/* Ensure the image scales properly within the container */
+.lb-image {
+  width: 100% !important;       /* Let the image fill the container */
+  height: auto !important;      /* Keep the aspect ratio */
+  max-height: 80vh !important;  /* Still limit vertical size */
+  object-fit: contain !important; /* Avoid stretching */
+}
+
+
+/* Adjust caption area if needed */
+.lb-dataContainer {
+  padding: 20px !important; /* Add more padding for captions */
+}
+
 
 
 
