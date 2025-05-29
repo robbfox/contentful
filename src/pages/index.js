@@ -22,13 +22,13 @@ const RootIndex = ({ data, location }) => {
         image={author.heroImage.gatsbyImage}
         title={author.name}
         content={author.shortBio}
+        
       />
 
       {/* Conditional Rendering for posts section */}
       {posts && posts.length > 0 && ( // Only render if there are posts
         <section className="homepage-posts-section"> {/* Optional wrapper */}
-          <h2>Recent Articles</h2> {/* Or "Featured Articles" etc. */}
-          
+     
           {isMobile ? (
             // Mobile view: Render ArticlePreview
             <ArticlePreview posts={posts} />
