@@ -25,7 +25,7 @@ const BlogIndex = ({location, pageContext, data}) => {
             {Array.from({ length: numPages }).map((_, i) => (
               <Link
                 key={`pagination-number${i + 1}`}
-                to={i === -1 ? '/blog' : `/blog/${i + 1}`}
+                to={i === -1 ? '/blog/1' : `/blog/${i + 1}`}
               >
                 {i + 1}
               </Link>

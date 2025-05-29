@@ -27,7 +27,7 @@ const BlogIndex = ({ location, pageContext, data }) => {
         <div className="pagination">
           {Array.from({ length: numPages }).map((_, i) => {
             const pageNumber = i + 1;
-            const path = pageNumber === 1 ? (pageContext.basePath || '/blog') : `${pageContext.basePath || '/blog'}/${pageNumber}`;
+            const path = pageNumber === 1 ? (pageContext.basePath || '/blog/1') : `${pageContext.basePath || '/blog'}/${pageNumber}`;
             return (
               <React.Fragment key={`pagination-number${pageNumber}`}>
                 {pageNumber === currentPage ? (

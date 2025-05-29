@@ -1,10 +1,25 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { useTexture, Text } from '@react-three/drei'; // OrbitControls removed
+import React, { useRef, useState, useEffect, useMemo } from 'react'; // useEffect is used in BlogGallery3D & BakedPanelTexture
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'; // useLoader is needed here
+import { Text } from '@react-three/drei'; // Text is not directly used in BakedPanelTexture, but PostPanel uses it if you revert
 import { navigate } from 'gatsby';
 import * as THREE from 'three';
 
-// PostPanel component (remains the same)
+// Constants for BakedPanelTexture
+const DEFAULT_PANEL_WIDTH_PX = 600;
+const DEFAULT_PANEL_HEIGHT_PX = 400; // Adjusted to maintain 3:2 aspect ratio with default plane
+const DEFAULT_IMAGE_PORTION = 0.7;  // Defaulting to the value used in PostPanel
+const DEFAULT_TEXT_BG_COLOR = '#282c34';// Defaulting to the value used in PostPanel
+const DEFAULT_TEXT_COLOR = 'white';
+const DEFAULT_TITLE_FONT_SIZE = 28;   // Defaulting to the value used in PostPanel
+const DEFAULT_DATE_FONT_SIZE = 20;    // Defaulting to the value used in PostPanel
+const DEFAULT_FONT_FAMILY = 'sans-serif'; // Defaulting to the value used in PostPanel
+const TEXTURE_PADDING = 15;
+
+// Constants for BlogGallery3D (kept separate for clarity, could be merged if preferred)
+// const GALLERY_RADIUS = 5; // Already defined in BlogGallery3D
+const USER_INTERACTION_TIMEOUT = 2000; // Already defined in BlogGallery3D
+const DEFAULT_CAMERA_FOV = 60; // Already defined in BlogGallery3D
+
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
     const words = text.split(' ');
     let line = '';
@@ -23,56 +38,70 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
         }
     }
     context.fillText(line, x, currentY);
-    return currentY + lineHeight; // Return Y position after last line
+    return currentY + lineHeight;
 }
-
 
 function BakedPanelTexture({
     imageUrl,
     title,
     date,
-    panelWidthPx = 600, // Total width of the texture
-    panelHeightPx = 500, // Total height of the texture
-    imagePortion = 0.95, // Image takes top 75% of height
-    textBgColor = '#333333', // Background color for the text area
-    textColor = 'white',
-    titleFontSize = 30,
-    dateFontSize = 24,
-    fontFamily = 'Arial'
-}) {
+    panelWidthPx = DEFAULT_PANEL_WIDTH_PX,
+    panelHeightPx = DEFAULT_PANEL_HEIGHT_PX,
+    imagePortion = DEFAULT_IMAGE_PORTION,
+    textBgColor = DEFAULT_TEXT_BG_COLOR,
+    textColor = DEFAULT_TEXT_COLOR,
+    titleFontSize = DEFAULT_TITLE_FONT_SIZE,
+    dateFontSize = DEFAULT_DATE_FONT_SIZE,
+    fontFamily = DEFAULT_FONT_FAMILY
+}) { // This is the correct opening brace for the function body
     const [texture, setTexture] = useState(null);
+    // baseImage should be declared ONCE here
     const baseImage = useLoader(THREE.TextureLoader, imageUrl);
 
     useEffect(() => {
-        if (!baseImage || !baseImage.image) { // Ensure baseImage.image is loaded
-            console.log("Base image not ready or not an image element");
-            return;
-        }
-        // Ensure the image element has actually loaded its data
-        if (!baseImage.image.complete || baseImage.image.naturalHeight === 0) {
-            const img = baseImage.image;
-            const onImageLoad = () => {
-                console.log("Base image fully loaded, proceeding with baking.");
-                bakeTexture();
-                img.removeEventListener('load', onImageLoad);
-                img.removeEventListener('error', onImageError);
-            };
-            const onImageError = () => {
-                console.error("Error loading base image for baking.");
-                img.removeEventListener('load', onImageLoad);
-                img.removeEventListener('error', onImageError);
-            };
-            img.addEventListener('load', onImageLoad);
-            img.addEventListener('error', onImageError);
-            if (img.src && img.complete) { // If already complete (e.g. from cache)
-                bakeTexture();
-            }
-            return; // Wait for image to load
+        if (!baseImage || !baseImage.image) {
+            // console.log("Base image not ready or not an image element (yet)");
+            return; // Wait for baseImage and baseImage.image to be available
         }
 
-        bakeTexture(); // Bake if image already loaded and complete
+        let didUnmount = false; // To prevent state updates on unmounted component
+
+        const performBake = () => {
+            // Ensure the image element has actually loaded its data
+            if (!baseImage.image.complete || baseImage.image.naturalHeight === 0) {
+                const img = baseImage.image;
+                const onImageLoad = () => {
+                    // console.log("Base image fully loaded, proceeding with baking.");
+                    if (!didUnmount) bakeTexture();
+                    img.removeEventListener('load', onImageLoad);
+                    img.removeEventListener('error', onImageError);
+                };
+                const onImageError = (e) => {
+                    console.error("Error loading base image for baking:", e, img.src);
+                    img.removeEventListener('load', onImageLoad);
+                    img.removeEventListener('error', onImageError);
+                    // Optionally set a fallback texture or error state here
+                };
+
+                // Check if already errored or loaded before adding listeners
+                if (img.complete && img.naturalHeight !== 0) {
+                     if (!didUnmount) bakeTexture();
+                } else if (img.complete && img.naturalHeight === 0 && img.src) { // Complete but no height usually means error
+                    console.error("Image " + img.src + " completed with 0 height, likely an error.");
+                } else if (img.src) { // Only add listeners if src is set and not yet fully loaded/errored
+                    img.addEventListener('load', onImageLoad);
+                    img.addEventListener('error', onImageError);
+                } else {
+                    // console.log("Image src not available yet for listeners.");
+                }
+                return; // Wait for image to load via event listener
+            }
+            // Bake if image already loaded and complete
+            if (!didUnmount) bakeTexture();
+        };
 
         function bakeTexture() {
+            // console.log("Baking texture for:", title);
             const canvas = document.createElement('canvas');
             canvas.width = panelWidthPx;
             canvas.height = panelHeightPx;
@@ -81,59 +110,59 @@ function BakedPanelTexture({
             const imageHeight = panelHeightPx * imagePortion;
             const textAreastartY = imageHeight;
             const textAreaHeight = panelHeightPx - imageHeight;
-            const padding = 15; // Padding within the text area
+            const padding = TEXTURE_PADDING;
 
-            // 1. Draw base image in its designated area
             try {
                 ctx.drawImage(baseImage.image, 0, 0, panelWidthPx, imageHeight);
             } catch (e) {
-                console.error("Error drawing image to canvas:", e, baseImage.image);
-                // Draw a fallback color if image draw fails
-                ctx.fillStyle = '#555';
+                console.error("Error drawing image to canvas:", e, baseImage.image.src);
+                ctx.fillStyle = '#555'; // Fallback color
                 ctx.fillRect(0, 0, panelWidthPx, imageHeight);
             }
 
-
-            // 2. Draw background for the text area
             ctx.fillStyle = textBgColor;
             ctx.fillRect(0, textAreastartY, panelWidthPx, textAreaHeight);
 
-            // 3. Draw text within the text area
             ctx.fillStyle = textColor;
             ctx.textAlign = 'center';
 
-            // Title
             ctx.font = `bold ${titleFontSize}px ${fontFamily}`;
-            // Simple word wrapping for title (you might need a more robust solution)
-            let currentTextY = textAreastartY + padding + titleFontSize; // Start Y for title
+            let currentTextY = textAreastartY + padding + titleFontSize;
             currentTextY = wrapText(ctx, title, panelWidthPx / 2, currentTextY, panelWidthPx - (padding * 2), titleFontSize * 1.2);
 
-
-            // Date
             if (date) {
                 ctx.font = `${dateFontSize}px ${fontFamily}`;
-                // currentTextY is already advanced by wrapText, add a little space
-                currentTextY += dateFontSize * 0.5; // Small space before date
-                wrapText(ctx, date, panelWidthPx / 2, currentTextY, panelWidthPx - (padding*2), dateFontSize * 1.2);
+                currentTextY += dateFontSize * 0.5;
+                wrapText(ctx, date, panelWidthPx / 2, currentTextY, panelWidthPx - (padding * 2), dateFontSize * 1.2);
             }
 
             const newTexture = new THREE.CanvasTexture(canvas);
             newTexture.needsUpdate = true;
-            setTexture(newTexture);
-
-            return () => {
-                newTexture.dispose();
-            };
+            if (!didUnmount) {
+                setTexture(newTexture);
+            } else {
+                newTexture.dispose(); // Dispose if component unmounted before texture was set
+            }
         }
+        
+        performBake(); // Call the bake initiation logic
+
+        return () => {
+            didUnmount = true;
+            // The texture set in state will be disposed by R3F/Three.js when no longer used by a material.
+            // If you created a texture that wasn't set in state for some reason, dispose here.
+            // console.log("BakedPanelTexture unmounting for:", title);
+        };
 
     }, [baseImage, title, date, panelWidthPx, panelHeightPx, imagePortion, textBgColor, textColor, titleFontSize, dateFontSize, fontFamily]);
 
     return texture;
 }
 
-// Then in PostPanel:
+
+// PostPanel:
 function PostPanel({ post, position, rotationY }) {
-  const fallbackImage = '/fallback-image.jpg'; // Make sure this exists in your /static folder
+  const fallbackImage = '/fallback-image.jpg';
   const imageUrl = post?.heroImage?.gatsbyImage?.images?.fallback?.src || fallbackImage;
   const titleText = post?.title || 'Untitled';
   const dateText = post?.publishDate;
@@ -142,14 +171,15 @@ function PostPanel({ post, position, rotationY }) {
     imageUrl: imageUrl,
     title: titleText,
     date: dateText,
-    panelWidthPx: 600, // Texture width
-    panelHeightPx: 400, // Texture height (e.g. 3:2 aspect)
-    imagePortion: 0.7,  // Image takes 70% of height, text area 30%
-    textBgColor: '#282c34', // Dark background for text
-    textColor: '#ffffff',
-    titleFontSize: 28,
-    dateFontSize: 20,
-    fontFamily: 'sans-serif' // Choose a common font or ensure webfont is loaded
+    // Using constants for clarity and consistency
+    panelWidthPx: DEFAULT_PANEL_WIDTH_PX,
+    panelHeightPx: DEFAULT_PANEL_HEIGHT_PX,
+    imagePortion: DEFAULT_IMAGE_PORTION,
+    textBgColor: DEFAULT_TEXT_BG_COLOR,
+    textColor: DEFAULT_TEXT_COLOR,
+    titleFontSize: DEFAULT_TITLE_FONT_SIZE,
+    dateFontSize: DEFAULT_DATE_FONT_SIZE,
+    fontFamily: DEFAULT_FONT_FAMILY
   });
 
   const [isHovered, setIsHovered] = useState(false);
@@ -166,14 +196,12 @@ function PostPanel({ post, position, rotationY }) {
   });
 
   if (!bakedTexture) {
-    // Optional: Render a placeholder or null while texture is baking
-    // This helps prevent errors if bakedTexture is initially null.
-    // You could return a simple <mesh><boxGeometry /></mesh> or similar.
     return (
-        <mesh position={position} rotation-y={rotationY}>
-            <planeGeometry args={[3,2]} />
-            <meshBasicMaterial color="grey" wireframe />
-        </mesh>
+      <mesh position={position} rotation-y={rotationY}>
+        <planeGeometry args={[3, 2]} />
+        {/* Keep fallback simple, avoid loading more textures here */}
+        <meshBasicMaterial color="#444444" wireframe={false} />
+      </mesh>
     );
   }
 
@@ -186,15 +214,13 @@ function PostPanel({ post, position, rotationY }) {
       onPointerOver={() => setIsHovered(true)}
       onPointerOut={() => setIsHovered(false)}
     >
-      {/* Front Plane */}
       <mesh position-z={0.001}>
         <planeGeometry args={[3, 2]} />
-        <meshStandardMaterial map={bakedTexture} />
+        <meshStandardMaterial map={bakedTexture} transparent={bakedTexture?.transparent} />
       </mesh>
-      {/* Back Plane */}
       <mesh rotation-y={Math.PI} position-z={-0.001}>
         <planeGeometry args={[3, 2]} />
-        <meshStandardMaterial map={bakedTexture} />
+        <meshStandardMaterial map={bakedTexture} transparent={bakedTexture?.transparent} />
       </mesh>
     </group>
   );
@@ -228,20 +254,19 @@ function GalleryScene({ panelPositions, targetRotation }) {
   );
 }
 
-
-const BlogGallery3D = ({ posts = [], autoRotateSpeed = 0.003 }) => {
+// BlogGallery3D component
+const BlogGallery3D = ({ posts = [], autoRotateSpeed = 0.002 }) => { // Adjusted default autoRotateSpeed
   const lastTouchY = useRef(0);
   const [targetRotation, setTargetRotation] = useState(0);
-  const userInteractionRotationSpeed = 0.002;
-  const radius = 5;
+  const userInteractionRotationSpeed = 0.003;
+  // const radius = GALLERY_RADIUS; // Using local const for clarity
+  const radius = 5; // Or define GALLERY_RADIUS here or import
 
   const [isUserInteracting, setIsUserInteracting] = useState(false);
-  const interactionTimeoutRef = useRef(null); // For resuming auto-rotation
+  const interactionTimeoutRef = useRef(null);
 
-  // Auto-rotation logic
   useEffect(() => {
     let animationFrameId;
-    // Only pause if user is actively interacting (scroll/touch), not on general hover
     if (!isUserInteracting && posts.length > 0) {
       const rotate = () => {
         setTargetRotation((prev) => prev + autoRotateSpeed);
@@ -252,16 +277,15 @@ const BlogGallery3D = ({ posts = [], autoRotateSpeed = 0.003 }) => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isUserInteracting, autoRotateSpeed, posts.length]); // Removed isHoveringCanvas
+  }, [isUserInteracting, autoRotateSpeed, posts.length]);
 
-  // Handle user scroll/touch interaction
   useEffect(() => {
     const markUserInteracting = () => {
       setIsUserInteracting(true);
       clearTimeout(interactionTimeoutRef.current);
       interactionTimeoutRef.current = setTimeout(() => {
         setIsUserInteracting(false);
-      }, 2000); // Resume auto-rotate after 2 seconds of inactivity
+      }, USER_INTERACTION_TIMEOUT); // Using constant
     };
 
     const handleScroll = (event) => {
@@ -296,7 +320,7 @@ const BlogGallery3D = ({ posts = [], autoRotateSpeed = 0.003 }) => {
       window.removeEventListener('touchmove', handleTouchMove);
       clearTimeout(interactionTimeoutRef.current);
     };
-  }, [userInteractionRotationSpeed]);
+  }, [userInteractionRotationSpeed]); // Removed autoRotateSpeed from here
 
   const panelPositions = useMemo(() => {
     if (posts.length === 0) return [];
@@ -311,11 +335,19 @@ const BlogGallery3D = ({ posts = [], autoRotateSpeed = 0.003 }) => {
   }, [posts, radius]);
 
   return (
-    // Removed onMouseEnter/onMouseLeave from this div
     <div style={{ height: '80vh', width: '100%', touchAction: 'none', cursor: 'grab' }}>
-      <Canvas shadows camera={{ position: [0, 0, radius + 3], fov: 60 }}>
+      <Canvas 
+        shadows 
+        camera={{ 
+            position: [0, 0, radius + 3], 
+            fov: DEFAULT_CAMERA_FOV, // Using constant
+            near: 0.1, 
+            far: 100 // Adjusted far clipping plane slightly for potentially better depth precision
+        }}
+      >
         <ambientLight intensity={0.9} />
         <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
+        {/* Removed Suspense as bakedTexture handles its own loading state before rendering */}
         <GalleryScene
           panelPositions={panelPositions}
           targetRotation={targetRotation}

@@ -34,7 +34,7 @@ const RootIndex = ({ data, location }) => {
             <ArticlePreview posts={posts} />
           ) : (
             // Desktop view: Render 3D Gallery
-            <BlogGallery3D posts={posts} />
+            <BlogGallery3D posts={posts} autoRotateSpeed={0.007}  />
           )}
 
           {/* Optional: Link to the main blog page */}
@@ -53,7 +53,8 @@ export default RootIndex;
 export const pageQuery = graphql`
   query HomeQuery {
     # This query fetches up to 3 posts. Both views will use these 3 posts.
-    allContentfulBlogPost(sort: { publishDate: DESC }, limit: 3) {
+    allContentfulBlogPost(sort: { publishDate: DESC }, limit: 4
+    ) {
       nodes {
         title
         slug
