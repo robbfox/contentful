@@ -129,8 +129,8 @@ body, html {
   padding: 20px !important; /* Add more padding for captions */
 }
 .homepage-posts-section {
-  padding-left: 80px; /* Adjust as needed */
-  padding-right: 80px; /* If you want symmetric indentation */
+  padding-left: 160px; /* Adjust as needed */
+  padding-right: 160px; /* If you want symmetric indentation */
   /* Or use margin if the section has a defined width */
   /* margin-left: 20px; */
 }
