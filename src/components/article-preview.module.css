@@ -5,7 +5,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   grid-gap: var(--space-3xl);
-  color: #acb2c5
+  color: #acb2c5;
+  justify-content: center
 }
 
 .title {
