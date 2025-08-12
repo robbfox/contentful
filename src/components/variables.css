@@ -9,8 +9,8 @@
   --font-serif: 'Times New Roman', Times, serif;
 
   /* palette */
-  --white: #262227;
-  --black: #000000;
+  --white: #fff;
+  --black: #262227;
   --black-fade-5: rgba(0, 0, 0, 0.136);
 
   /* radii */
@@ -53,12 +53,12 @@
   /* tokens */
   /* colors */
   --primary: #66feef;
-  --background: var(--white);
+  --background: var(--black);
   --border: var(--black-fade-5);
 
   /* text */
   /* color */
-  --text-color: var(--black);
+  --text-color: var(--white);
   /* size */
   --text-lead: var(--text-lg);
   --text-prose: var(--text-md);
@@ -85,4 +85,13 @@
     --text-prose-tracking: -0.014em;
     --text-prose: var(--text-lg);
   }
+}
+
+html[data-theme='light'] {
+  --white: #fff;
+  --black: #262227;
+  --primary: #01c5b4;
+  --background: var(--white);
+  --border: var(--black-fade-5);
+  --text-color: var(--black);
 }

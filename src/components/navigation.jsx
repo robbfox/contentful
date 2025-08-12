@@ -1,9 +1,9 @@
-import React from 'react'
-import { Link } from 'gatsby'
+import React from 'react';
+import { Link } from 'gatsby';
 
-import * as styles from './navigation.module.css'
+import * as styles from './navigation.module.css';
 
-const Navigation = () => (
+const Navigation = ({ theme, toggleTheme }) => (
   <nav role="navigation" className={styles.container} aria-label="Main">
     <ul className={styles.navigation}>
       <li className={styles.navigationItem}>
@@ -26,8 +26,13 @@ const Navigation = () => (
           Contact
         </Link>
       </li>
+      <li className={styles.navigationItem}>
+        <button onClick={toggleTheme} className={styles.themeToggleButton}>
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
+      </li>
     </ul>
   </nav>
-)
+);
 
-export default Navigation
+export default Navigation;
