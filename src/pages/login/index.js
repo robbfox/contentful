@@ -30,7 +30,7 @@ const LoginPage = () => {
       if (response.ok && data.success) {
         // On successful login, navigate to the home page or a dashboard.
         // In a real app, you would save the authentication state/token here.
-        navigate('/');
+        navigate('/home');
       } else {
         // Use the error message from your API function
         setError(data.message || 'Login failed. Please try again.');
