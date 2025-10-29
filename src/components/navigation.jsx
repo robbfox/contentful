@@ -27,6 +27,11 @@ const Navigation = ({ theme, toggleTheme }) => (
         </Link>
       </li>
       <li className={styles.navigationItem}>
+        <Link to="/login/" activeClassName="active">
+          Login
+        </Link>
+      </li>
+      <li className={styles.navigationItem}>
         <button onClick={toggleTheme} className={styles.themeToggleButton}>
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
