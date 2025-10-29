@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
-import styles from './login.module.css';
+import styles from './login.module.css'; // This path is now relative to the new folder
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ const LoginPage = () => {
 
     try {
       // Call your new Gatsby Function endpoint
-      const response = await fetch(`/api/login`, {
+      const response = await fetch(`/api/authenticate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
