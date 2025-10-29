@@ -1,94 +1,81 @@
-import React from 'react';
-import { graphql, Link } from 'gatsby'; // Added Link in case you want a "View All Posts" link
-import get from 'lodash/get';
-import Layout from '../components/layout';
-import Hero from '../components/hero';
-import BlogGallery3D from '../components/BlogGallery3D';
-import ArticlePreview from '../components/article-preview'; // <--- IMPORT THIS
-import useMediaQuery from '../hooks/useMediaQuery';   
+// src/pages/login.js (or wherever your component is located)
 
-const RootIndex = ({ data, location }) => {
-  // Your GraphQL query aliases allContentfulBlogPost to 'allContentfulBlogPost'
-  // If you decide to have different sets of posts (e.g., 'featuredPosts' for gallery, 'otherPosts' for list)
-  // you'd adjust 'get' and the query alias accordingly. For now, using the same 'posts'.
-  const posts = get(data, 'allContentfulBlogPost.nodes');
-  const [author] = get(data, 'allContentfulPerson.nodes');
+import React, { useState } from 'react';
+import { navigate } from 'gatsby';
+import * as styles from './login.module.css'; // This path is now relative to the new folder
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+const LoginPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // Call your new Gatsby Function endpoint
+      const response = await fetch(`/api/authenticate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // On successful login, navigate to the home page or a dashboard.
+        // In a real app, you would save the authentication state/token here.
+        navigate('/home');
+      } else {
+        // Use the error message from your API function
+        setError(data.message || 'Login failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('An error occurred during login:', err);
+      setError('An unexpected error occurred. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <Layout location={location}>
-      <Hero
-        image={author.heroImage.gatsbyImage}
-        title={author.name}
-        content={author.shortBio}
-        
-      />
-
-      {/* Conditional Rendering for posts section */}
-      {posts && posts.length > 0 && ( // Only render if there are posts
-        <section className="homepage-posts-section"> {/* Optional wrapper */}
-     
-          {isMobile ? (
-            // Mobile view: Render ArticlePreview
-            <ArticlePreview posts={posts} />
-          ) : (
-            // Desktop view: Render 3D Gallery
-            <BlogGallery3D posts={posts} autoRotateSpeed={0.007}  />
-          )}
-
-          {/* Optional: Link to the main blog page */}
-          <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-            <Link to="/blog/1" activeClassName="active">View All Posts →</Link>
-          </div>
-        </section>
-      )}
-    </Layout>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1>Login</h1>
+        {error && <p className={styles.error}>{error}</p>}
+        <div className={styles.inputGroup}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={isLoading}
+            required
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading}
+            required
+          />
+        </div>
+        <button type="submit" className={styles.button} disabled={isLoading}>
+          {isLoading ? 'Logging In...' : 'Login'}
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default RootIndex;
-
-// GraphQL query for the homepage
-export const pageQuery = graphql`
-  query HomeQuery {
-    # This query fetches up to 3 posts. Both views will use these 3 posts.
-    allContentfulBlogPost(sort: { publishDate: DESC }, limit: 4
-    ) {
-      nodes {
-        title
-        slug
-        publishDate(formatString: "MMMM Do, YYYY")
-        tags
-        heroImage {
-          gatsbyImage(
-            layout: FULL_WIDTH
-            placeholder: BLURRED
-            width: 424 # Consider if these dimensions are ideal for ArticlePreview card images
-            height: 212
-          )
-        }
-        description {
-          raw
-        }
-        # Ensure all fields needed by ArticlePreview are here too
-      }
-    }
-    allContentfulPerson(
-      filter: { contentful_id: { eq: "15jwOBqpxqSAOy2eOO4S0m" } }
-    ) {
-      nodes {
-        name
-        shortBio {
-          raw
-        }
-        
-        title
-        heroImage: image {
-          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 3000)
-        }
-      }
-    }
-  }
-`;
-
+export default LoginPage;
