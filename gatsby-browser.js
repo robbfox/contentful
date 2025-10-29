@@ -1,4 +1,3 @@
-// gatsby-browser.js
 import React, { useEffect, useState } from "react";
 
 const AuthGate = ({ element }) => {
@@ -12,7 +11,6 @@ const AuthGate = ({ element }) => {
     const authed = sessionStorage.getItem("site-auth") === "1";
 
     if (!authed && !isLogin) {
-      // Replace immediately before any paint
       window.location.replace("/login");
     } else {
       setAuthorized(true);
@@ -20,7 +18,6 @@ const AuthGate = ({ element }) => {
     }
   }, []);
 
-  // Show nothing at all until check is complete
   if (!ready) return null;
   return authorized || window.location.pathname.includes("/login")
     ? element
@@ -31,14 +28,6 @@ export const wrapPageElement = ({ element, props }) => {
   return <AuthGate element={element} {...props} />;
 };
 
-
 export const onPreRenderHTML = ({ getHeadComponents, replaceHeadComponents }) => {
-  // Remove pre-rendered head components for unauthorized visitors
-  // (optional safeguard; won't break anything)
   replaceHeadComponents(getHeadComponents());
-};
-
-export const wrapPageElement = ({ element, props }) => {
-  // wrap the element with our AuthGate component
-  return <AuthGate element={element} {...props} />;
 };
