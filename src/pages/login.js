@@ -11,7 +11,7 @@ const LoginPage = () => {
     const secret = process.env.GATSBY_SITE_PASSWORD || "";
     if (pw === secret) {
       sessionStorage.setItem("site-auth", "1");
-      setTimeout(() => navigate("/"), 50);
+        navigate("/");
     } else {
       setErr("Wrong password");
     }
