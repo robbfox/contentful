@@ -2,31 +2,32 @@
 import React, { useEffect, useState } from "react";
 
 const AuthGate = ({ element }) => {
-  const [authorized, setAuthorized] = React.useState(false);
+  const [authorized, setAuthorized] = useState(false);
+  const [checked, setChecked] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window === "undefined") return;
 
     const path = window.location.pathname;
-    const isLoginPage =
-      path.includes("/login"); // covers /login and /en-GB/login etc.
+    const isLoginPage = path.includes("/login");
     const authed = sessionStorage.getItem("site-auth") === "1";
 
     if (!authed && !isLoginPage) {
-      window.location.replace("/login"); // or "/en-GB/login" if that exists
+      window.location.replace("/login");
     } else {
       setAuthorized(true);
     }
+    setChecked(true);
   }, []);
 
-  return authorized || (typeof window !== "undefined" &&
-    window.location.pathname.includes("/login"))
+  // only render once we've checked auth (prevents white flash)
+  if (!checked) return null;
+
+  return authorized || window.location.pathname.includes("/login")
     ? element
     : null;
 };
 
-
 export const wrapPageElement = ({ element, props }) => {
-  // wrap the element with our AuthGate component
   return <AuthGate element={element} {...props} />;
 };
