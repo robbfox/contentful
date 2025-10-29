@@ -49,7 +49,7 @@ const LoginPage = () => {
             value={pw}
             onChange={(e) => setPw(e.target.value)}
             style={{
-              width: "100%",
+              width: "95%%",
               padding: "10px",
               borderRadius: "6px",
               border: "none",
