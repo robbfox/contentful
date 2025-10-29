@@ -6,16 +6,18 @@ const LoginPage = () => {
   const [pw, setPw] = useState("");
   const [err, setErr] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const secret = process.env.GATSBY_SITE_PASSWORD || "";
-    if (pw === secret) {
-      sessionStorage.setItem("site-auth", "1");
-      navigate("/");
-    } else {
-      setErr("Wrong password");
-    }
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const secret = process.env.GATSBY_SITE_PASSWORD || "";
+  if (pw === secret) {
+    sessionStorage.setItem("site-auth", "1");
+    // Give the browser a tiny moment to persist sessionStorage before navigating
+    setTimeout(() => navigate("/"), 50);
+  } else {
+    setErr("Wrong password");
+  }
+};
+
 
   return (
     <main style={{maxWidth:400, margin:"5rem auto", textAlign:"center"}}>
