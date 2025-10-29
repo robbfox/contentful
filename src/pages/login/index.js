@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
-import styles from './login.module.css'; // This path is now relative to the new folder
+import * as styles from './login.module.css'; // This path is now relative to the new folder
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
