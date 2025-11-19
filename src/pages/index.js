@@ -8,21 +8,18 @@ import ArticlePreview from '../components/article-preview'; // <--- IMPORT THIS
 import useMediaQuery from '../hooks/useMediaQuery';   
 
 const RootIndex = ({ data, location }) => {
-  // Your GraphQL query aliases allContentfulBlogPost to 'allContentfulBlogPost'
-  // If you decide to have different sets of posts (e.g., 'featuredPosts' for gallery, 'otherPosts' for list)
-  // you'd adjust 'get' and the query alias accordingly. For now, using the same 'posts'.
   const posts = get(data, 'allContentfulBlogPost.nodes');
   const [author] = get(data, 'allContentfulPerson.nodes');
-
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Layout location={location}>
       <Hero
         image={author.heroImage.gatsbyImage}
+        // Pass the new image here (with optional chaining in case it's empty)
+        experimentalImage={author.experimentalImage?.gatsbyImage} 
         title={author.name}
         content={author.shortBio}
-        
       />
 
       {/* Conditional Rendering for posts section */}
@@ -82,13 +79,16 @@ export const pageQuery = graphql`
         shortBio {
           raw
         }
-        
         title
+        # Keep the professional image as the default
         heroImage: image {
+          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 3000)
+        }
+        # ADD THIS NEW FIELD (Make sure the name matches your Contentful ID exactly)
+        experimentalImage {
           gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 3000)
         }
       }
     }
   }
 `;
-
