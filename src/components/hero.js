@@ -5,7 +5,6 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 const Hero = ({ image, experimentalImage, title, content }) => {
   const [isHovered, setIsHovered] = useState(false)
 
-  // Helper to safely render rich text
   const renderBio = () => {
     if (!content || !content.raw) return null
     try {
@@ -22,24 +21,17 @@ const Hero = ({ image, experimentalImage, title, content }) => {
       style={{ 
         position: 'relative', 
         width: '100%', 
-        minHeight: '60vh', 
+        minHeight: '70vh', 
         overflow: 'hidden',
-        backgroundColor: '#222' // Dark gray fallback
+        backgroundColor: '#222' 
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       
-      {/* 1. EXPERIMENTAL IMAGE (Absolute Background - Hidden Layer) */}
+      {/* 1. EXPERIMENTAL IMAGE (Background) */}
       {experimentalImage && (
-        <div style={{ 
-          position: 'absolute', 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '100%', 
-          zIndex: 1 
-        }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
           <GatsbyImage 
             image={experimentalImage} 
             alt="Experimental View" 
@@ -49,7 +41,7 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         </div>
       )}
 
-      {/* 2. PROFESSIONAL IMAGE (Relative - Top Layer) */}
+      {/* 2. PROFESSIONAL IMAGE (Foreground) */}
       {image ? (
         <div style={{ 
           position: 'relative', 
@@ -63,41 +55,58 @@ const Hero = ({ image, experimentalImage, title, content }) => {
             image={image} 
             alt={title || "Professional View"} 
             loading="eager"
-            style={{ height: "100%", minHeight: '60vh' }}
+            style={{ height: "100%", minHeight: '70vh' }}
           />
         </div>
       ) : (
-        // Fallback empty div to keep structure if main image fails
-        <div style={{ height: '60vh', width: '100%' }}></div>
+        <div style={{ height: '70vh', width: '100%' }}></div>
       )}
 
-      {/* 3. TEXT CONTENT (Overlay) */}
+      {/* 3. TEXT CONTENT */}
       <div style={{
         position: 'absolute',
-        top: '50%',
+        top: '65%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         zIndex: 10,
-        color: 'white',
         textAlign: 'center',
         pointerEvents: 'none',
-        width: '80%',
-        maxWidth: '800px'
+        width: '90%',
+        maxWidth: '900px'
       }}>
+        
+        {/* NAME - NEON GREEN/YELLOW */}
         <h1 style={{ 
-          fontSize: '4rem', 
-          marginBottom: '1rem', 
-          fontWeight: '700',
-          textShadow: '0 2px 20px rgba(0,0,0,0.8)' 
+          color: '#EAFF04', 
+          fontSize: '4.5rem', 
+          marginBottom: '0.5rem', 
+          fontWeight: '800',
+          letterSpacing: '-0.03em',
+          lineHeight: '1.1',
+          textShadow: `
+            0 2px 0px #000,
+            0 4px 10px rgba(0,0,0,0.5),
+            0 0 60px rgba(0,0,0,0.9)
+          `
         }}>
           {title}
         </h1>
         
+        {/* BIO - TECH LABEL STYLE */}
         {content && (
            <div style={{ 
-             fontSize: '1.25rem',
-             textShadow: '0 1px 10px rgba(0,0,0,0.9)',
-             lineHeight: '1.6'
+             marginTop: '1.2rem',
+             display: 'inline-block',
+             backgroundColor: '#111', 
+             color: 'white',
+             fontFamily: '"Courier New", Courier, monospace', 
+             fontSize: '1.3rem',
+             fontWeight: 'bold',
+             padding: '0.5rem 1.5rem', 
+             border: '2px solid #EAFF04', 
+             boxShadow: '6px 6px 0px rgba(0,0,0,0.5)', 
+             transform: 'rotate(-1deg)', 
+             maxWidth: '90%' 
            }}>
              {renderBio()}
            </div>
