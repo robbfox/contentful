@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react' // <--- 1. Import useRef
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const Hero = ({ image, experimentalImage, title, content }) => {
   const [isHovered, setIsHovered] = useState(false)
+  const isTouchUser = useRef(false) // <--- 2. Create a ref to track touch usage
 
   const renderBio = () => {
     if (!content || !content.raw) return null
@@ -15,14 +16,38 @@ const Hero = ({ image, experimentalImage, title, content }) => {
     }
   }
 
-  // Define the style object for the internal images once to reuse it
-  // This is the "Nuclear" layer that applies directly to the <img> tag
+  // --- NEW EVENT HANDLERS ---
+  
+  // When mouse enters, only switch IF we haven't detected a touch recently
+  const handleMouseEnter = () => {
+    if (isTouchUser.current) return
+    setIsHovered(true)
+  }
+
+  // When mouse leaves, only switch IF we haven't detected a touch recently
+  const handleMouseLeave = () => {
+    if (isTouchUser.current) return
+    setIsHovered(false)
+  }
+
+  // Touch logic: Set the flag to TRUE so mouse events are ignored
+  const handleTouchStart = () => {
+    isTouchUser.current = true
+    setIsHovered(true)
+  }
+
+  const handleTouchEnd = () => {
+    setIsHovered(false)
+    // We do NOT reset isTouchUser.current to false here. 
+    // We want to keep blocking mouse events for this session/interaction.
+  }
+
   const noTouchImageStyle = {
     objectFit: "cover",
-    pointerEvents: 'none',       // Invisible to mouse/touch
-    userSelect: 'none',          // Cannot be highlighted
-    WebkitUserSelect: 'none',    // Safari specific
-    WebkitTouchCallout: 'none'   // iOS Safari/Chrome specific block
+    pointerEvents: 'none',
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
+    WebkitTouchCallout: 'none'
   }
 
   return (
@@ -38,17 +63,15 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         WebkitTouchCallout: 'none',
         userSelect: 'none',
         WebkitUserSelect: 'none',
-        // NEW: This tells the browser "Allow vertical scrolling, but handle taps manually"
-        // This is crucial for preventing default Chrome gestures
-        touchAction: 'pan-y' 
+        touchAction: 'pan-y'
       }}
-      // --- INTERACTION HANDLERS ---
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
-      onTouchEnd={() => setIsHovered(false)}
-      onTouchCancel={() => setIsHovered(false)}
-      // Force block context menu
+      // --- UPDATED HANDLERS ---
+      onMouseEnter={handleMouseEnter} // Use the smart handler
+      onMouseLeave={handleMouseLeave} // Use the smart handler
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
+      
       onContextMenu={(e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -63,7 +86,6 @@ const Hero = ({ image, experimentalImage, title, content }) => {
             image={experimentalImage} 
             alt="Experimental View" 
             style={{ height: "100%", width: "100%", pointerEvents: 'none' }} 
-            // APPLYING THE FIX DIRECTLY TO THE INNER IMAGE
             imgStyle={noTouchImageStyle} 
             draggable={false} 
           />
@@ -86,7 +108,6 @@ const Hero = ({ image, experimentalImage, title, content }) => {
             alt={title || "Professional View"} 
             loading="eager"
             style={{ height: "100%", minHeight: '70vh' }}
-            // APPLYING THE FIX DIRECTLY TO THE INNER IMAGE
             imgStyle={noTouchImageStyle} 
             draggable={false} 
           />
@@ -107,7 +128,7 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         width: '90%',
         maxWidth: '900px'
       }}>
-        {/* ... Title and Bio ... */}
+        {/* ... Title and Bio Content (Same as before) ... */}
         <h1 style={{ 
           color: '#EAFF04', 
           fontSize: '4.5rem', 
