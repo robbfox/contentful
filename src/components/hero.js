@@ -23,10 +23,21 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         width: '100%', 
         minHeight: '70vh', 
         overflow: 'hidden',
-        backgroundColor: '#222' 
+        backgroundColor: '#222',
+        // This ensures mobile browsers don't flash a highlight color when tapped
+        WebkitTapHighlightColor: 'transparent' 
       }}
+      // --- DESKTOP INTERACTION ---
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      
+      // --- MOBILE INTERACTION (Added) ---
+      // 1. Finger touches screen -> Show weird image
+      onTouchStart={() => setIsHovered(true)}
+      // 2. Finger leaves screen -> Show suit image
+      onTouchEnd={() => setIsHovered(false)}
+      // 3. Finger slides off or alert pops up -> Reset to suit image
+      onTouchCancel={() => setIsHovered(false)}
     >
       
       {/* 1. EXPERIMENTAL IMAGE (Background) */}
@@ -70,7 +81,8 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         transform: 'translate(-50%, -50%)',
         zIndex: 10,
         textAlign: 'center',
-        pointerEvents: 'none',
+        // Crucial: keeps text from blocking the touch event on the image below
+        pointerEvents: 'none', 
         width: '90%',
         maxWidth: '900px'
       }}>
