@@ -15,6 +15,16 @@ const Hero = ({ image, experimentalImage, title, content }) => {
     }
   }
 
+  // Define the style object for the internal images once to reuse it
+  // This is the "Nuclear" layer that applies directly to the <img> tag
+  const noTouchImageStyle = {
+    objectFit: "cover",
+    pointerEvents: 'none',       // Invisible to mouse/touch
+    userSelect: 'none',          // Cannot be highlighted
+    WebkitUserSelect: 'none',    // Safari specific
+    WebkitTouchCallout: 'none'   // iOS Safari/Chrome specific block
+  }
+
   return (
     <div 
       className="hero-container"
@@ -24,33 +34,38 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         minHeight: '70vh', 
         overflow: 'hidden',
         backgroundColor: '#222',
-        WebkitTapHighlightColor: 'transparent', // Stops blue flash
-        WebkitTouchCallout: 'none', // Stops iOS menu (backup)
-        userSelect: 'none',         // Stops text selection
-        WebkitUserSelect: 'none'    // Safari text selection
+        WebkitTapHighlightColor: 'transparent',
+        WebkitTouchCallout: 'none',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        // NEW: This tells the browser "Allow vertical scrolling, but handle taps manually"
+        // This is crucial for preventing default Chrome gestures
+        touchAction: 'pan-y' 
       }}
-      // --- INTERACTION HANDLERS (Keep these on the parent DIV) ---
+      // --- INTERACTION HANDLERS ---
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={() => setIsHovered(true)}
       onTouchEnd={() => setIsHovered(false)}
       onTouchCancel={() => setIsHovered(false)}
-      // This blocks the Right-Click menu on Desktop
+      // Force block context menu
       onContextMenu={(e) => {
         e.preventDefault()
+        e.stopPropagation()
         return false
       }}
     >
-   
       
       {/* 1. EXPERIMENTAL IMAGE (Background) */}
       {experimentalImage && (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
           <GatsbyImage 
             image={experimentalImage} 
             alt="Experimental View" 
-            style={{ height: "100%", width: "100%" }}
-            imgStyle={{ objectFit: "cover" }} 
+            style={{ height: "100%", width: "100%", pointerEvents: 'none' }} 
+            // APPLYING THE FIX DIRECTLY TO THE INNER IMAGE
+            imgStyle={noTouchImageStyle} 
+            draggable={false} 
           />
         </div>
       )}
@@ -63,15 +78,17 @@ const Hero = ({ image, experimentalImage, title, content }) => {
           transition: 'opacity 0.4s ease-in-out',
           opacity: isHovered ? 0 : 1,
           height: '100%',
-          width: '100%'
+          width: '100%',
+          pointerEvents: 'none' 
         }}>
           <GatsbyImage 
             image={image} 
             alt={title || "Professional View"} 
             loading="eager"
             style={{ height: "100%", minHeight: '70vh' }}
-            draggable={false}
-            imgStyle={{ objectFit: "cover" }} 
+            // APPLYING THE FIX DIRECTLY TO THE INNER IMAGE
+            imgStyle={noTouchImageStyle} 
+            draggable={false} 
           />
         </div>
       ) : (
@@ -86,13 +103,11 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         transform: 'translate(-50%, -50%)',
         zIndex: 10,
         textAlign: 'center',
-        // Crucial: keeps text from blocking the touch event on the image below
         pointerEvents: 'none', 
         width: '90%',
         maxWidth: '900px'
       }}>
-        
-        {/* NAME - NEON GREEN/YELLOW */}
+        {/* ... Title and Bio ... */}
         <h1 style={{ 
           color: '#EAFF04', 
           fontSize: '4.5rem', 
@@ -109,7 +124,6 @@ const Hero = ({ image, experimentalImage, title, content }) => {
           {title}
         </h1>
         
-        {/* BIO - TECH LABEL STYLE */}
         {content && (
            <div style={{ 
              marginTop: '1.2rem',
