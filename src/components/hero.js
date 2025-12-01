@@ -41,6 +41,7 @@ const Hero = ({ image, experimentalImage, title, content }) => {
         return false
       }}
     >
+   
       
       {/* 1. EXPERIMENTAL IMAGE (Background) */}
       {experimentalImage && (
@@ -48,9 +49,8 @@ const Hero = ({ image, experimentalImage, title, content }) => {
           <GatsbyImage 
             image={experimentalImage} 
             alt="Experimental View" 
-            style={{ height: "100%", width: "100%", pointerEvents: 'none' }} // ADDED HERE
+            style={{ height: "100%", width: "100%" }}
             imgStyle={{ objectFit: "cover" }} 
-            draggable={false} // ADDED HERE
           />
         </div>
       )}
@@ -63,15 +63,15 @@ const Hero = ({ image, experimentalImage, title, content }) => {
           transition: 'opacity 0.4s ease-in-out',
           opacity: isHovered ? 0 : 1,
           height: '100%',
-          width: '100%',
-          pointerEvents: 'none' // <--- CRITICAL: This makes the image invisible to clicks
+          width: '100%'
         }}>
           <GatsbyImage 
             image={image} 
             alt={title || "Professional View"} 
             loading="eager"
             style={{ height: "100%", minHeight: '70vh' }}
-            draggable={false} // Prevents dragging "ghost" image
+            draggable={false}
+            imgStyle={{ objectFit: "cover" }} 
           />
         </div>
       ) : (
@@ -80,10 +80,54 @@ const Hero = ({ image, experimentalImage, title, content }) => {
 
       {/* 3. TEXT CONTENT */}
       <div style={{
-        // ... (rest of your text styles) ...
-        pointerEvents: 'none', // Keep this!
+        position: 'absolute',
+        top: '65%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 10,
+        textAlign: 'center',
+        // Crucial: keeps text from blocking the touch event on the image below
+        pointerEvents: 'none', 
+        width: '90%',
+        maxWidth: '900px'
       }}>
-        {/* ... (Your text content) ... */}
+        
+        {/* NAME - NEON GREEN/YELLOW */}
+        <h1 style={{ 
+          color: '#EAFF04', 
+          fontSize: '4.5rem', 
+          marginBottom: '0.5rem', 
+          fontWeight: '800',
+          letterSpacing: '-0.03em',
+          lineHeight: '1.1',
+          textShadow: `
+            0 2px 0px #000,
+            0 4px 10px rgba(0,0,0,0.5),
+            0 0 60px rgba(0,0,0,0.9)
+          `
+        }}>
+          {title}
+        </h1>
+        
+        {/* BIO - TECH LABEL STYLE */}
+        {content && (
+           <div style={{ 
+             marginTop: '1.2rem',
+             display: 'inline-block',
+             backgroundColor: '#111', 
+             color: 'white',
+             fontFamily: '"Courier New", Courier, monospace', 
+             fontSize: '1.3rem',
+             fontWeight: 'bold',
+             padding: '0.5rem 1.5rem', 
+             border: '2px solid #EAFF04', 
+             boxShadow: '6px 6px 0px rgba(0,0,0,0.5)', 
+             transform: 'rotate(-1deg)', 
+             maxWidth: '90%' 
+           }}>
+             {renderBio()}
+           </div>
+        )}
       </div>
 
     </div>
