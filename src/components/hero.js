@@ -20,23 +20,27 @@ const Hero = ({ image, experimentalImage, title, content }) => {
   
   // When mouse enters, only switch IF we haven't detected a touch recently
   const handleMouseEnter = () => {
+    if (!experimentalImage) return
     if (isTouchUser.current) return
     setIsHovered(true)
   }
 
   // When mouse leaves, only switch IF we haven't detected a touch recently
   const handleMouseLeave = () => {
+    if (!experimentalImage) return
     if (isTouchUser.current) return
     setIsHovered(false)
   }
 
   // Touch logic: Set the flag to TRUE so mouse events are ignored
   const handleTouchStart = () => {
+    if (!experimentalImage) return
     isTouchUser.current = true
     setIsHovered(true)
   }
 
   const handleTouchEnd = () => {
+    if (!experimentalImage) return
     setIsHovered(false)
     // We do NOT reset isTouchUser.current to false here. 
     // We want to keep blocking mouse events for this session/interaction.
