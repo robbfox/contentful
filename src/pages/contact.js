@@ -13,7 +13,11 @@ const ContactIndex = ({location, data}) => {
     return (
        <Layout location={location}>
         <Seo title="Contact" />
-        <Hero title="Contact" image={contact.heroImage.gatsbyImage} contactImage={contact.contactImage} />
+        <Hero 
+          title={<span style={{ paddingLeft: '40px' }}>Contact</span>} 
+          image={contact.heroImage.gatsbyImage} 
+          // You can remove contactImage if it's not being used by the Hero component
+        />
 
         <div class="container">
   <div class="columns is-justify-content-left">
