@@ -20,7 +20,7 @@ const BlogIndex = ({ location, pageContext, data }) => {
   return (
     <Layout location={location}>
       <Seo title={`Blog - Page ${currentPage}`} />
-      <Hero title="Blog" textTop="50%" />
+      <Hero title="Blog - Page ${currentPage}" textTop="50%" />
 
       {/* Conditional Rendering based on isMobile */}
       {isMobile ? (
