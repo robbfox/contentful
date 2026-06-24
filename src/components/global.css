@@ -134,6 +134,12 @@ body, html {
   /* Or use margin if the section has a defined width */
   /* margin-left: 20px; */
 }
+.page-number {
+  color: #53e1f4;      /* or whatever colour you want */
+  font-size: 2.4rem;   /* or smaller/larger */
+  font-weight: 700;    /* optional */
+}
+
 
 
 
