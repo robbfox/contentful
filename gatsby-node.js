@@ -53,16 +53,43 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const currentPage = i + 1;
     const skip = i * postsPerPage;
 
-    createPage({
-      path: i === 0 ? `/blog` : `/blog/${currentPage}`,
-      component: path.resolve('./src/templates/blog-template.js'),
-      context: {
-        limit: postsPerPage,
-        skip,
-        numPages,
-        currentPage,
-        basePath: '/blog',
-      },
-    });
+    if (i === 0) {
+      createPage({
+        path: `/blog`,
+        component: path.resolve('./src/templates/blog-template.js'),
+        context: {
+          limit: postsPerPage,
+          skip,
+          numPages,
+          currentPage,
+          basePath: '/blog',
+        },
+      });
+
+      // Alias /blog/1 to the first page for compatibility and direct access.
+      createPage({
+        path: `/blog/1`,
+        component: path.resolve('./src/templates/blog-template.js'),
+        context: {
+          limit: postsPerPage,
+          skip,
+          numPages,
+          currentPage,
+          basePath: '/blog',
+        },
+      });
+    } else {
+      createPage({
+        path: `/blog/${currentPage}`,
+        component: path.resolve('./src/templates/blog-template.js'),
+        context: {
+          limit: postsPerPage,
+          skip,
+          numPages,
+          currentPage,
+          basePath: '/blog',
+        },
+      });
+    }
   });
 };
