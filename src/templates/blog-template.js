@@ -23,7 +23,7 @@ const BlogIndex = ({ location, pageContext, data }) => {
       <Hero
         title={
           <>
-            Blog – Page <span className="page-number">{currentPage}</span>
+            Blog <span className="page-number"> - Page {currentPage}</span>
           </>
   }
         textTop="50%"
