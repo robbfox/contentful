@@ -54,13 +54,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const skip = i * postsPerPage;
 
     createPage({
-      path: i === -1 ? `/blog` : `/blog/${currentPage}`,
+      path: i === 0 ? `/blog` : `/blog/${currentPage}`,
       component: path.resolve('./src/templates/blog-template.js'),
       context: {
         limit: postsPerPage,
         skip,
         numPages,
         currentPage,
+        basePath: '/blog',
       },
     });
   });
