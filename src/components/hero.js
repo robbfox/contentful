@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react' // <--- 1. Import useRef
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
-const Hero = ({ image, experimentalImage, title, content }) => {
+const Hero = ({ image, experimentalImage, title, content, textTop = '65%' }) => {
   const [isHovered, setIsHovered] = useState(false)
   const isTouchUser = useRef(false) // <--- 2. Create a ref to track touch usage
 
@@ -123,7 +123,7 @@ const Hero = ({ image, experimentalImage, title, content }) => {
       {/* 3. TEXT CONTENT */}
       <div style={{
         position: 'absolute',
-        top: '65%',
+        top: textTop,
         left: '50%',
         transform: 'translate(-50%, -50%)',
         zIndex: 10,

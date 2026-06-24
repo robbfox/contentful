@@ -20,7 +20,16 @@ const BlogIndex = ({ location, pageContext, data }) => {
   return (
     <Layout location={location}>
       <Seo title={`Blog - Page ${currentPage}`} />
-      <Hero title="Blog" />
+      <Hero title="Blog" textTop="50%" />
+
+      {/* Conditional Rendering based on isMobile */}
+      {isMobile ? (
+        // Mobile view: Pass the 'posts' array directly to ArticlePreview
+        <ArticlePreview posts={posts} />
+      ) : (
+        // Desktop view: Render 3D Gallery
+        <BlogGallery3D posts={posts} />
+      )}
 
       {/* Pagination ... (remains the same) ... */}
       {numPages > 1 && (
@@ -46,15 +55,6 @@ const BlogIndex = ({ location, pageContext, data }) => {
             );
           })}
         </div>
-      )}
-
-      {/* Conditional Rendering based on isMobile */}
-      {isMobile ? (
-        // Mobile view: Pass the 'posts' array directly to ArticlePreview
-        <ArticlePreview posts={posts} />
-      ) : (
-        // Desktop view: Render 3D Gallery
-        <BlogGallery3D posts={posts} />
       )}
     </Layout>
   );
